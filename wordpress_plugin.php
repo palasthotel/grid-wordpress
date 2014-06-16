@@ -322,6 +322,7 @@ function grid_wp_privileges()
 <input class="button" type="submit">
 </form>
 <?php
+	}
 }
 
 function grid_wp_styles()
@@ -434,7 +435,7 @@ function grid_wp_default_container_style_html()
 	}
 ?>
 </select>
-<?
+<?php
 }
 
 function grid_wp_default_slot_style_html()
@@ -454,7 +455,7 @@ function grid_wp_default_slot_style_html()
 	}
 ?>
 </select>
-<?
+<?php
 }
 
 function grid_wp_default_box_style_html()
@@ -474,7 +475,7 @@ function grid_wp_default_box_style_html()
 	}
 ?>
 </select>
-<?
+<?php
 }
 
 function grid_wp_post_type_html($args)
@@ -507,7 +508,7 @@ function grid_wp_sidebar_html()
 	}
 ?>
 </select>
-<?
+<?php
 }
 
 function grid_wp_default_container_section()
