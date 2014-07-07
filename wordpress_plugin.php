@@ -322,6 +322,7 @@ function grid_wp_privileges()
 <input class="button" type="submit">
 </form>
 <?php
+	}
 }
 
 function grid_wp_styles()
