@@ -20,6 +20,7 @@ require( 'core/classes/wordpress/grid_sidebar_box.php' );
 require( 'core/classes/wordpress/grid_post_box.php' );
 require( 'core/classes/wordpress/grid_media_box.php' );
 require( 'core/classes/wordpress/grid_posts_box.php' );
+require( 'core/classes/wordpress/grid_shortcode_box.php' );
 
 add_filter( 'posts_where', 'grid_posts_where', 10, 2 );
 function grid_posts_where( $where, &$wp_query )
