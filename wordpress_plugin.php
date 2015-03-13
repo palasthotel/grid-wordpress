@@ -24,6 +24,7 @@ require( 'core/classes/wordpress/grid_sidebar_box.php' );
 require( 'core/classes/wordpress/grid_post_box.php' );
 require( 'core/classes/wordpress/grid_media_box.php' );
 require( 'core/classes/wordpress/grid_posts_box.php' );
+require( 'core/classes/wordpress/grid_shortcode_box.php' );
 
 /**
  * override html box
