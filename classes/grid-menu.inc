@@ -9,13 +9,29 @@
 namespace grid_plugin;
 
 
-class settings
+class grid_menu
 {
 	function __construct(){
+		add_action( 'admin_bar_menu', array( $this, 'admin_bar' ), 999 );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 
 
+	}
+
+	/**
+	 * add adminbar button
+	 */
+	function admin_bar() {
+		global $wp_admin_bar;
+		global $post;
+		if ( isset( $post->grid ) ) {
+			$wp_admin_bar->add_node( array(
+				'id' => 'grid_wp_thegrid',
+				'title' => 'Edit Grid',
+				'href' => add_query_arg( array( 'page' => 'grid', 'postid' => $post->ID ), admin_url( 'admin.php' ) ),
+			) );
+		}
 	}
 
 	/**
