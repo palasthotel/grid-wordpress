@@ -22,7 +22,7 @@ class settings
 	 * register admin menu page for settings
 	 */
 	function admin_menu(){
-		add_submenu_page( 'options-general.php', 'Grid', 'Grid', 'manage_options', 'grid_settings', array( $this, 'render_settings_form' ) );
+		add_submenu_page( 'grid_menu', 'Grid ‹ Settings', 'Settings', 'manage_options', 'grid_settings', array( $this, 'render_settings_form' ) );
 	}
 
 	/**
