@@ -4,6 +4,34 @@ namespace grid_plugin;
 
 class ajaxendpoint extends \grid_ajaxendpoint {
 
+	/**
+	 * ajaxendpoint constructor.
+	 */
+	function __construct()
+	{
+		add_action('admin_menu', array($this, 'admin_menu'));
+	}
+
+	/**
+	 * ---------------------------------------------
+	 * handle ajax requests with special ajax page
+	 * ---------------------------------------------
+	 */
+	function admin_menu(){
+		add_submenu_page( null, 'Grid AJAX', 'The Grid AJAX', 'edit_posts', 'grid_ajax', array( $this, 'ajax' ) );
+	}
+
+	function ajax() {
+		$storage = grid_wp_get_storage();
+		$storage->handleAjaxCall();
+		die();
+	}
+
+	/**
+	 * ------------------------------------
+	 * overwrite functions
+	 * ------------------------------------
+	 */
 	public function loadGrid( $gridid )
 	{
 		global $wpdb;

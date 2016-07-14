@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: edward
- * Date: 04.10.15
- * Time: 19:58
- */
 
 namespace grid_plugin;
 
@@ -21,6 +15,20 @@ class the_grid
 		add_filter( 'page_row_actions', array( $this, 'grid_wp_actions' ), 10, 2 );
 	}
 
+	function admin_menu(){
+		add_submenu_page( null, 'The Grid', 'The Grid', 'edit_posts', 'grid', array( $this, 'render_grid' ) );
+		add_submenu_page( null, 'Grid CKEditor Config', 'Grid CKEditor Config', 'edit_posts', 'grid_ckeditor_config', array( $this, 'ckeditor_config' ) );
+		add_submenu_page( null, 'Grid Container slots CSS', 'Grid Conatiner slots CSS', 'edit_posts', 'grid_wp_container_slots_css', array( $this, 'container_slots_css' ) );
+	}
+
+    function container_slots_css() {
+        global $grid_lib;
+        global $wpdb;
+        $rows = $wpdb->get_results( 'select * from '.$wpdb->prefix.'grid_container_type' );
+        echo $grid_lib->getContainerSlotCSS( $rows );
+        die();
+    }
+
 	/**
 	 * add the grid action to post types
 	 * @param $actions
@@ -36,13 +44,9 @@ class the_grid
 		return $actions;
 	}
 
-	function admin_menu(){
-		add_submenu_page( null, 'The Grid', 'The Grid', 'edit_posts', 'grid', array( $this, 'render_grid' ) );
-		add_submenu_page( null, 'Grid AJAX', 'The Grid AJAX', 'edit_posts', 'grid_ajax', array( $this, 'ajax' ) );
-		add_submenu_page( null, 'Grid CKEditor Config', 'Grid CKEditor Config', 'edit_posts', 'grid_ckeditor_config', array( $this, 'ckeditor_config' ) );
-		add_submenu_page( null, 'Grid Container slots CSS', 'Grid Conatiner slots CSS', 'edit_posts', 'grid_wp_container_slots_css', array( $this, 'container_slots_css' ) );
-	}
-
+    /**
+     * renders the grid
+     */
 	function render_grid() {
 		global $wpdb;
 		//	$storage=grid_wp_get_storage();
@@ -143,17 +147,5 @@ class the_grid
 		die();
 	}
 
-	function container_slots_css() {
-		global $grid_lib;
-		global $wpdb;
-		$rows = $wpdb->get_results( 'select * from '.$wpdb->prefix.'grid_container_type' );
-		echo $grid_lib->getContainerSlotCSS( $rows );
-		die();
-	}
 
-	function ajax() {
-		$storage = grid_wp_get_storage();
-		$storage->handleAjaxCall();
-		die();
-	}
 }
