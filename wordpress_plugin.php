@@ -19,6 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 class grid_plugin {
+	public $plugin_basename;
 	public $dir;
 	public $url;
 	/**
@@ -28,6 +29,7 @@ class grid_plugin {
 		/**
 		 * base paths
 		 */
+		$this->plugin_basename = plugin_basename(__FILE__);
 		$this->dir = plugin_dir_path(__FILE__);
 		$this->url = plugin_dir_url(__FILE__);
 
@@ -73,7 +75,7 @@ class grid_plugin {
 		 *  Grid settings pages
 		 */
 		require( $this->dir .'/classes/settings.inc' );
-		new \grid_plugin\settings();
+		new \grid_plugin\settings($this);
 
 		/**
 		 *  gird container factory

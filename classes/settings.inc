@@ -11,11 +11,28 @@ namespace grid_plugin;
 
 class settings
 {
-	function __construct(){
+	/**
+	 * settings constructor.
+	 *
+	 * @param $plugin \grid_plugin
+	 */
+	function __construct($plugin){
+		$this->plugin = $plugin;
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
+		
+		add_filter('plugin_action_links_'.$this->plugin->plugin_basename, array($this, 'plugin_action_links'));
 
-
+	}
+	
+	/**
+	 * add settings link to plugins page
+	 * @param $links
+	 * @return array
+	 */
+	function plugin_action_links( $links ){
+		$links[] = '<a href="'. esc_url( get_admin_url(null, 'admin.php?page=grid_settings') ) .'">Settings</a>';
+		return $links;
 	}
 
 	/**
