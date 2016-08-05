@@ -629,7 +629,7 @@ function grid_wp_activate() {
 	}
 	// for initial content type registration
 	global $grid_plugin;
-	$grid_plugin->init();
+//	$grid_plugin->init();
 	global $wp_rewrite;
 	$wp_rewrite->flush_rules();
 }
