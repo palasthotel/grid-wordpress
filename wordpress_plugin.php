@@ -3,11 +3,11 @@
  * Plugin Name: Grid
  * Plugin URI: https://github.com/palasthotel/grid-wordpress
  * Description: Helps layouting pages with containerist.
- * Version: 1.6.1
+ * Version: 1.6.4
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Benjamin Birkenhake, Edward Bock, Enno Welbers)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 4.0
- * Tested up to: 4.5.2
+ * Tested up to: 4.6
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @copyright Copyright (c) 2014, Palasthotel
  * @package Palasthotel\Grid-WordPress
@@ -22,6 +22,9 @@ class grid_plugin {
 	public $plugin_basename;
 	public $dir;
 	public $url;
+	
+	
+	
 	/**
 	 * construct grid plugin
 	 */
@@ -32,6 +35,17 @@ class grid_plugin {
 		$this->plugin_basename = plugin_basename(__FILE__);
 		$this->dir = plugin_dir_path(__FILE__);
 		$this->url = plugin_dir_url(__FILE__);
+		
+		/**
+		 * load constants
+		 */
+		require($this->dir .'/constants/position_in_post.php');
+		
+		
+		/**
+		 * load translations
+		 */
+		load_plugin_textdomain( 'grid', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 
 		global $grid_loaded;
 		$grid_loaded = false;
@@ -443,7 +457,7 @@ function grid_wp_get_privs() {
 /**
  * deprecated function
  * use global $grid_plugin->get_storage()
- * @return grid_storage
+ * @return grid_db grid_storage
  */
 function grid_wp_get_storage() {
 	global $grid_plugin;
