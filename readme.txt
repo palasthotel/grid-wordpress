@@ -75,7 +75,11 @@ Have a look at wordpress.org for plugins that provide new grid boxes or you can 
 
 == Changelog ==
 
-= 1.6.6. =
+= 1.6.7 =
+ * Multiautocomplete widget fixes
+ * Posts box with multiautocomplete for taxonomies
+
+= 1.6.6 =
  * Avoid Doublets plugin implementation
 
 = 1.6.5 =
