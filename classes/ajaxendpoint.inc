@@ -167,8 +167,9 @@ class ajaxendpoint extends \grid_ajaxendpoint {
 	/**
 	 * ajaxendpoint constructor.
 	 */
-	function __construct()
+	function __construct($storage)
 	{
+	    parent::__construct($storage);
 		add_action('admin_menu', array($this, 'admin_menu'));
 	}
 
