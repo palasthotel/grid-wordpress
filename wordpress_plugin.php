@@ -49,6 +49,11 @@ class grid_plugin {
 
 		global $grid_loaded;
 		$grid_loaded = false;
+		
+		/**
+		 * ajax endpoint
+		 */
+		require_once( $this->dir .'/classes/ajaxendpoint.inc');
 
 		/**
 		 * do stuff for wordpress spezific boxes
@@ -73,11 +78,6 @@ class grid_plugin {
 		 */
 		require( $this->dir .'/classes/meta_boxes.inc' );
 		new \grid_plugin\meta_boxes();
-		
-		/**
-		 * meta boxes
-		 */
-		require( $this->dir .'/classes/ajaxendpoint.inc' );
 
 		/**
 		 *  Grid menu
@@ -170,10 +170,6 @@ class grid_plugin {
 	 * register wp grid endpoint
 	 */
 	function get_ajax_endpoint($storage){
-		/**
-		 * grid ajax endpoint once
-		 */
-		require_once( $this->dir .'/classes/ajaxendpoint.inc');
 		return new \grid_plugin\ajaxendpoint($storage);
 	}
 
@@ -650,16 +646,19 @@ function grid_wp_activate() {
 		$grid_connection->close();
 		$options['installed'] = true;
 		update_option( 'grid', $options );
+		
 		/**
 		 * default post types for grids
 		 */
 		update_option( 'grid_landing_page_enabled', true );
 		update_option( 'grid_sidebar_enabled', true );
+		
 		/**
 		 * default searchable post types in grid
 		 */
 		update_option( 'grid_post_search_enabled', true );
 		update_option( 'grid_page_search_enabled', true );
+		
 		/**
 		 * othter defaults
 		 */

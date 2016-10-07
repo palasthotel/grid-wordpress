@@ -170,7 +170,10 @@ class ajaxendpoint extends \grid_ajaxendpoint {
 	function __construct($storage)
 	{
 	    parent::__construct($storage);
-		add_action('admin_menu', array($this, 'admin_menu'));
+		add_action("wp_ajax_grid_ajax", array($this, "ajax"));
+		if(get_option( 'grid_debug_mode', false )){
+			add_action("wp_ajax_nopriv_grid_ajax", array($this, "ajax"));
+		}
 	}
 
 	/**
@@ -178,14 +181,10 @@ class ajaxendpoint extends \grid_ajaxendpoint {
 	 * handle ajax requests with special ajax page
 	 * ---------------------------------------------
 	 */
-	function admin_menu(){
-		add_submenu_page( null, 'Grid AJAX', 'The Grid AJAX', 'edit_posts', 'grid_ajax', array( $this, 'ajax' ) );
-	}
-
 	function ajax() {
 		$storage = grid_wp_get_storage();
 		$storage->handleAjaxCall();
-		die();
+		wp_die();
 	}
 
 }
