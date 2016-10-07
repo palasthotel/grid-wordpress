@@ -131,12 +131,7 @@ class settings
 		add_settings_field( 'grid_default_container', __('Which container should be placed automatically', 'grid'), array( $this, 'default_container_html' ), 'grid_settings', 'grid_default_container' );
 		register_setting( 'grid_settings', 'grid_default_container' );
 
-		/**
-		 * debug mode
-		 */
-		add_settings_section( 'grid_debug_mode', __('Debug Mode', 'grid'), array( $this, 'debug_mode_section' ), 'grid_settings' );
-		add_settings_field( 'grid_debug_mode', __('Turn debug mode on/off', 'grid'), array( $this, 'debug_mode_html' ), 'grid_settings', 'grid_debug_mode' );
-		register_setting( 'grid_settings', 'grid_debug_mode' );
+		
 
 		/**
 		 * async settings
@@ -172,6 +167,23 @@ class settings
 		add_settings_section( 'grid_permalinks', __('Grid', 'grid'), array( $this, 'permalinks_section' ), 'grid_settings' );
 		add_settings_field( 'grid_permalinks', __('Landing Page base', 'grid'), array( $this, 'permalinks_html' ), 'grid_settings', 'grid_permalinks' );
 		register_setting( 'grid_settings', 'grid_permalinks' );
+		
+		
+		/**
+		 * debug mode
+		 */
+		add_settings_section( 'grid_debug_mode', __('Debug Mode', 'grid'), array( $this, 'debug_mode_section' ), 'grid_settings' );
+		add_settings_field( 'grid_debug_mode', __('Turn debug mode on/off', 'grid'), array( $this, 'debug_mode_html' ), 'grid_settings', 'grid_debug_mode' );
+		register_setting( 'grid_settings', 'grid_debug_mode' );
+		
+		/**
+		 * public ajax mode
+		 */
+		add_settings_section( 'grid_public_ajax_mode', __('Public ajax mode', 'grid'), array( $this, 'public_ajax_mode_section' ), 'grid_settings' );
+		add_settings_field( 'grid_public_ajax_mode', __('Turn public ajax mode on/off', 'grid'), array( $this, 'public_ajax_mode_html' ), 'grid_settings', 'grid_public_ajax_mode' );
+		register_setting( 'grid_settings', 'grid_public_ajax_mode' );
+		
+		
 	}
 
 	function default_styles_settings_section() {
@@ -306,6 +318,18 @@ class settings
 		$value = get_option( 'grid_debug_mode', false );
 		?>
 		<input type="checkbox" id="grid_debug_mode" name="grid_debug_mode" <?php echo ( $value ? 'checked' : '' );?>> <?php echo ( $value ? 'Enabled' : 'Disabled' )?>
+		<?php
+	}
+	
+	function public_ajax_mode_section() {
+		echo 'This is a <b>BIG SECURITY ISSUE</b>. Only enable this mode if you are really sure.';
+	}
+	
+	function public_ajax_mode_html() {
+		
+		$value = get_option( 'grid_public_ajax_mode', false );
+		?>
+		<input type="checkbox" id="grid_public_ajax_mode" name="grid_public_ajax_mode" <?php echo ( $value ? 'checked' : '' );?>> <?php echo ( $value ? 'Enabled' : 'Disabled' )?>
 		<?php
 	}
 

@@ -171,7 +171,7 @@ class ajaxendpoint extends \grid_ajaxendpoint {
 	{
 	    parent::__construct($storage);
 		add_action("wp_ajax_grid_ajax", array($this, "ajax"));
-		if(get_option( 'grid_debug_mode', false )){
+		if(get_option( 'grid_public_ajax_mode', false )){
 			add_action("wp_ajax_nopriv_grid_ajax", array($this, "ajax"));
 		}
 	}
