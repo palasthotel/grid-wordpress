@@ -73,12 +73,11 @@ class grid_plugin {
 		 */
 		require( $this->dir .'/classes/meta_boxes.inc' );
 		new \grid_plugin\meta_boxes();
-
+		
 		/**
-		 * wp ajax endpoint
+		 * meta boxes
 		 */
-		$storage=$this->get_storage();
-		$this->get_ajax_endpoint($storage);
+		require( $this->dir .'/classes/ajaxendpoint.inc' );
 
 		/**
 		 *  Grid menu
@@ -127,8 +126,16 @@ class grid_plugin {
 		 */
 		require( $this->dir .'/classes/custom_post_types.inc');
 		new \grid_plugin\custom_post_types($this);
-
+		
+		/**
+		 * place the scripts
+		 */
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_head' ) );
+		
+		/**
+		 * wp ajax endpoint
+		 */
+		add_action("init", array($this, "init_storage"));
 
 	}
 
@@ -150,7 +157,15 @@ class grid_plugin {
 			wp_enqueue_style( 'grid_frontend', admin_url( 'admin-ajax.php' ).'?action=gridfrontendCSS' );
 		}
 	}
-
+	
+	/**
+	 * as soon as wordpress is ready init storage
+	 */
+	function init_storage(){
+		$storage=$this->get_storage();
+		$this->get_ajax_endpoint($storage);
+	}
+	
 	/**
 	 * register wp grid endpoint
 	 */
