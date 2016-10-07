@@ -77,7 +77,8 @@ class grid_plugin {
 		/**
 		 * wp ajax endpoint
 		 */
-		$this->get_ajax_endpoint();
+		$storage=$this->get_storage();
+		$this->get_ajax_endpoint($storage);
 
 		/**
 		 *  Grid menu
@@ -153,12 +154,12 @@ class grid_plugin {
 	/**
 	 * register wp grid endpoint
 	 */
-	function get_ajax_endpoint(){
+	function get_ajax_endpoint($storage){
 		/**
 		 * grid ajax endpoint once
 		 */
 		require_once( $this->dir .'/classes/ajaxendpoint.inc');
-		return new \grid_plugin\ajaxendpoint();
+		return new \grid_plugin\ajaxendpoint($storage);
 	}
 
 	/**
@@ -208,7 +209,7 @@ class grid_plugin {
 		if ( ! isset( $grid_storage ) ) {
 			$user = wp_get_current_user();
 			$storage = new grid_db( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, $user->user_login, $wpdb->prefix, array($this,'fire_hook') );
-			$storage->ajaxEndpoint = new \grid_plugin\ajaxendpoint();
+			$storage->ajaxEndpoint = new \grid_plugin\ajaxendpoint($storage);
 			$storage->ajaxEndpoint->storage = $storage;
 
 			// for old versions
