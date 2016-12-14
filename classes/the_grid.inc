@@ -55,7 +55,7 @@ class the_grid
 		/**
 		 * if there is no post id. we cannot do anytihng
 		 */
-		if( 0=== $postid ){
+		if( 0 === $postid ){
 			?>
 			<p><?php _e('Ups! I cannot find a Grid without an Post ID.', 'grid'); ?></p>
 			<?php
@@ -125,7 +125,7 @@ class the_grid
 			$grid_id,
 			'grid',
 			add_query_arg( array( 'noheader' => true, 'page' => 'grid_ckeditor_config' ), admin_url( 'admin.php' ) ),
-			add_query_arg( array( 'noheader' => true, 'page' => 'grid_ajax' ), admin_url( 'admin.php' ) ),
+			admin_url( 'admin-ajax.php' )."?action=grid_ajax",
 			get_option( 'grid_debug_mode', false ),
 			add_query_arg( array( 'grid_preview' => true ), get_permalink( $postid ) ),
 			add_query_arg( array( 'grid_preview' => true, 'grid_revision' => '{REV}' ), get_permalink( $postid ) ),
