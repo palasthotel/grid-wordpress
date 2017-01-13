@@ -6,7 +6,7 @@ class permissions_component extends \grid_ajax_permissions_component {
 
     public function Rights()
     {
-        $privs = grid_wp_get_privs();
+        $privs = \grid_wp_get_privs();
         $privileges = array();
         foreach ( $privs as $role => $privs ) {
             if ( current_user_can( $role ) ) {

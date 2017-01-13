@@ -449,7 +449,7 @@ function grid_wp_load($post){
 function grid_wp_get_privs() {
 	global $wp_roles;
 	$names = $wp_roles->get_names();
-	$ajaxendpoint = new grid_ajaxendpoint();
+	$ajaxendpoint = new grid_ajax_permissions_component();
 	$rights = $ajaxendpoint->Rights();
 	$default = array();
 	foreach ( $rights as $right ) {
