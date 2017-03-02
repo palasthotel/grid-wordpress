@@ -31,6 +31,8 @@ class grid_posts_box extends grid_list_box {
 		$this->content->offset = 0;
 		$this->content->post_type = 'post';
 		$this->content->relation = 'OR';
+		$this->content->post_format = '';
+		// $this->content->tax_* is used by dynamic taxonomies
 	}
 	
 	/**
@@ -66,6 +68,21 @@ class grid_posts_box extends grid_list_box {
 			 * generate taxonomy
 			 */
 			$tax_query = array();
+			
+			/**
+			 * post format
+			 */
+			if(!empty($this->content->post_format)){
+				$tax_query[] = array(
+					'taxonomy' => 'post_format',
+					'field' => 'slug',
+					'terms' => array( 'post-format-'.$this->content->post_format),
+				);
+			}
+			
+			/**
+			 * all other taxonomies
+			 */
 			foreach($this->content as $field => $value){
 				if(''== $value || strpos($field,"tax_") !== 0) continue;
 				/**
@@ -75,7 +92,6 @@ class grid_posts_box extends grid_list_box {
 					$tax_query[] = array(
 						'taxonomy' => $this->getTaxonomyNameByKey($field),
 						'terms' => $value,
-						'operator' => $relation,
 					);
 					continue;
 				}
@@ -83,13 +99,16 @@ class grid_posts_box extends grid_list_box {
 				 * new multiautoselect support
 				 */
 				if(count($value) < 1) continue;
-				$tax_query[] = array(
+				$tax = array(
 					'taxonomy' => $this->getTaxonomyNameByKey($field),
 					'field' => 'term_id',
 					'terms' => $value,
-					'operator' => $relation,
 				);
+				// Operator to test. Possible values are 'IN', 'NOT IN', 'AND', 'EXISTS' and 'NOT EXISTS'. Default value is 'IN'.
+				if(count($value) > 1 && $relation == "AND") $tax["operator"] = $relation;
+				$tax_query[] = $tax;
 			}
+			
 			/**
 			 * add relation if more than one term was selected
 			 */
@@ -173,6 +192,7 @@ class grid_posts_box extends grid_list_box {
 			 * post format is a special case so ignore
 			 */
 			if('post_format'==$tax->name) continue;
+			
 			/**
 			 * add taxonomy to content structure
 			 */
@@ -181,6 +201,35 @@ class grid_posts_box extends grid_list_box {
 				'label' => $tax->label,
 				'type' => 'multi-autocomplete',
 			);
+		}
+		
+		/**
+		 * post format taxonomy
+		 */
+		if ( current_theme_supports( 'post-formats' ) ) {
+			
+			$formats = array();
+			$formats[] = array(
+				'key' => '',
+				'text' => __('All post formats'),
+			);
+			
+			$post_formats = get_theme_support( 'post-formats' );
+			$available = $post_formats[0];
+			foreach ($available as $slug){
+				$formats[] = array(
+					'key' => $slug,
+					'text' => get_post_format_string($slug),
+				);
+			}
+			
+			$cs[] = array(
+				'key' => 'post_format',
+				'label' => __('Post format'),
+				'type' => 'select',
+				'selections' => $formats,
+			);
+			
 		}
 		
 		/**
@@ -211,6 +260,7 @@ class grid_posts_box extends grid_list_box {
 			'type' => 'select',
 			'selections' => $post_types,
 		);
+		
 		
 		
 		
