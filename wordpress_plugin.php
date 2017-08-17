@@ -7,9 +7,9 @@
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Benjamin Birkenhake, Edward Bock, Enno Welbers)
  * Author URI: http://www.palasthotel.de
  * Requires at least: 4.0
- * Tested up to: 4.7
+ * Tested up to: 4.8.1
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
- * @copyright Copyright (c) 2014, Palasthotel
+ * @copyright Copyright (c) 2017, Palasthotel
  * @package Palasthotel\Grid-WordPress
  */
 
