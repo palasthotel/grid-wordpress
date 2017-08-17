@@ -623,6 +623,16 @@ function grid_wp_activate() {
 			if ( isset( $data['primary key'] ) ) {
 				$query .= ',constraint primary key ('.implode( ',', $data['primary key'] ).')';
 			}
+			if( isset($data["unique keys"]) && is_array($data["unique keys"])){
+				foreach($data["unique keys"] as $key_name => $key_columns){
+					$query .= ', UNIQUE KEY '.$key_name.' ('.implode(', ', $key_columns).')';
+				}
+			}
+			if( isset($data["indexes"]) && is_array($data["indexes"])){
+				foreach($data["indexes"] as $key_name => $key_columns){
+					$query .= ', INDEX '.$key_name.' ('.implode(', ', $key_columns).')';
+				}
+			}
 			$query .= ') ';
 			if ( isset( $data['mysql_engine'] ) ) {
 				$query .= 'ENGINE = '.$data['mysql_engine'];
