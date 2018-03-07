@@ -35,7 +35,7 @@ class grid_plugin {
 		/**
 		 * load constants
 		 */
-		require($this->dir .'/constants/position_in_post.php');
+		require(dirname(__FILE__) .'/constants/position_in_post.php');
 		
 		
 		/**
@@ -46,28 +46,31 @@ class grid_plugin {
 		global $grid_loaded;
 		$grid_loaded = false;
 
+		require(dirname(__FILE__) .'/classes/gutenberg.php');
+		new \grid_plugin\Gutenberg($this);
+
 		/**
 		 * do stuff for wordpress spezific boxes
 		 */
-		require($this->dir .'/classes/boxes.inc');
+		require(dirname(__FILE__) .'/classes/boxes.inc');
 		new \grid_plugin\boxes();
 
 		/**
 		 * the grid itself!
 		 */
-		require($this->dir .'/classes/the_grid.inc');
+		require(dirname(__FILE__) .'/classes/the_grid.inc');
 		new \grid_plugin\the_grid();
 
 		/**
 		 * Styles
 		 */
-		require($this->dir .'/classes/post.inc');
+		require(dirname(__FILE__) .'/classes/post.inc');
 		$this->post = new \grid_plugin\post();
 
 		/**
 		 * meta boxes
 		 */
-		require( $this->dir .'/classes/meta_boxes.inc' );
+		require( dirname(__FILE__) .'/classes/meta_boxes.inc' );
 		new \grid_plugin\meta_boxes();
 
 		/**
@@ -78,37 +81,37 @@ class grid_plugin {
 		/**
 		 *  Grid settings pages
 		 */
-		require( $this->dir .'/classes/settings.inc' );
+		require( dirname(__FILE__) .'/classes/settings.inc' );
 		new \grid_plugin\settings();
 
 		/**
 		 *  gird container factory
 		 */
-		require( $this->dir .'/classes/container_factory.inc');
+		require( dirname(__FILE__) .'/classes/container_factory.inc');
 		new \grid_plugin\container_factory();
 
 		/**
 		 *  gird container reuse
 		 */
-		require( $this->dir .'/classes/reuse_container.inc');
+		require( dirname(__FILE__) .'/classes/reuse_container.inc');
 		new \grid_plugin\reuse_container();
 
 		/**
 		 *  gird box reuse
 		 */
-		require( $this->dir .'/classes/reuse_box.inc');
+		require( dirname(__FILE__) .'/classes/reuse_box.inc');
 		new \grid_plugin\reuse_box();
 
 		/**
 		 *  gird privileges
 		 */
-		require( $this->dir .'/classes/privileges.inc');
+		require( dirname(__FILE__) .'/classes/privileges.inc');
 		new \grid_plugin\privileges();
 
 		/**
 		 * Styles
 		 */
-		require( $this->dir .'/classes/styles.inc');
+		require( dirname(__FILE__) .'/classes/styles.inc');
 		new \grid_plugin\styles();
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_head' ) );
@@ -216,8 +219,9 @@ class grid_plugin {
 		/**
 		 * grid ajax endpoint once
 		 */
-		require_once( $this->dir .'/classes/ajaxendpoint.inc');
-		return new \grid_plugin\ajaxendpoint();
+		require_once( dirname(__FILE__) .'/classes/ajaxendpoint.inc');
+		global $grid_storage;
+		return new \grid_plugin\ajaxendpoint($grid_storage);
 	}
 
 	/**
@@ -267,7 +271,7 @@ class grid_plugin {
 		if ( ! isset( $grid_storage ) ) {
 			$user = wp_get_current_user();
 			$storage = new grid_db( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME, $user->user_login, $wpdb->prefix, array($this,'fire_hook') );
-			$storage->ajaxEndpoint = new \grid_plugin\ajaxendpoint();
+			$storage->ajaxEndpoint = new \grid_plugin\ajaxendpoint($grid_storage);
 			$storage->ajaxEndpoint->storage = $storage;
 
 			// for old versions
