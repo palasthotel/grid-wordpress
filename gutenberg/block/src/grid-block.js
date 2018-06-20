@@ -1,4 +1,3 @@
-
 /**
  * Gutenpride
  * A gutenberg block that displays a powered by Gutenberg message
@@ -62,7 +61,7 @@ registerBlockType( 'palasthotel/the-grid', {
 registerBlockType( 'palasthotel/the-grid__posts', {
 	title: 'Posts',
 	icon: 'grid-view',
-	category: 'grid-view',
+	category: 'layout',
 	// do not edit render html of grid in editor
 	html: false,
 	edit(props) {
