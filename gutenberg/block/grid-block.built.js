@@ -81,74 +81,56 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
-var TermTreeSelect = wp.blocks.TermTreeSelect;
-
-
-var label = __('This post proudly created in');
 
 // https://github.com/WordPress/gutenberg/blob/master/editor/components/block-list/index.js#L21
 // https://github.com/WordPress/gutenberg/blob/master/docs/block-api.md
 // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 // https://wordpress.org/gutenberg/handbook/blocks/creating-dynamic-blocks/
 
-var Grid = function () {
-    function Grid() {
-        _classCallCheck(this, Grid);
+var GutenbergGridContainer = function () {
+    function GutenbergGridContainer(type) {
+        _classCallCheck(this, GutenbergGridContainer);
 
+        this._type = type;
         this._clicked = 0;
     }
 
-    _createClass(Grid, [{
+    _createClass(GutenbergGridContainer, [{
         key: 'render',
         value: function render() {
             return React.createElement(
                 'div',
                 null,
-                'This will be a GRID',
-                React.createElement(
-                    'a',
-                    { onClick: this.clicked.bind(this) },
-                    'Click me! I was clicked ',
-                    this._clicked,
-                    ' times'
-                )
+                'This will be a GRID Container type ',
+                this._type
             );
-        }
-    }, {
-        key: 'clicked',
-        value: function clicked() {
-            this._clicked++;
         }
     }]);
 
-    return Grid;
+    return GutenbergGridContainer;
 }();
 
-var grid = null;
+GridGutenberg.containertypes.map(function (containertype, i) {
+    registerBlockType('palasthotel/the-grid-container-' + containertype.type, {
+        title: 'Grid Container ' + containertype.type,
+        icon: 'grid-view', // TODO change icon according to container type
+        category: 'layout',
+        // do not edit render html of grid in editor
+        html: false,
+        edit: function edit(props) {
 
-console.log(GridGutenberg);
+            var grid_container = new GutenbergGridContainer(containertype.type);
 
-registerBlockType('palasthotel/the-grid', {
-    title: 'Grid',
-    icon: 'grid-view',
-    category: 'layout',
-    // only one grid per post allowed
-    useOnce: true,
-    // do not edit render html of grid in editor
-    html: false,
-    edit: function edit(props) {
-
-        if (grid == null) grid = new Grid();
-
-        return grid.render();
-    },
-    save: function save(props) {
-        return React.createElement(
-            'div',
-            null,
-            'This will be a GRID save'
-        );
-    }
+            return grid_container.render();
+        },
+        save: function save(props) {
+            return React.createElement(
+                'div',
+                null,
+                'This will be a GRID Container save // TODO maybe render in php like dynamic block'
+            );
+        }
+    });
 });
 
 /***/ })
