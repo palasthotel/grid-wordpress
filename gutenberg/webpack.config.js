@@ -1,11 +1,11 @@
 const config = {
     entry: {
-        block: './block/src/grid-block.js',
+        'grid-block': './block/src/grid-block.js',
     },
     output: {
         path: __dirname + '/block',
         filename: '[name].built.js',
-        sourceMapFilename: '[name].map',
+        sourceMapFilename: '[name].built.map',
     },
     devtool: 'source-map',
     module: {

@@ -65,7 +65,10 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -89,85 +92,65 @@ var label = __('This post proudly created in');
 // https://wordpress.org/gutenberg/handbook/blocks/creating-dynamic-blocks/
 
 var Grid = function () {
-	function Grid() {
-		_classCallCheck(this, Grid);
+    function Grid() {
+        _classCallCheck(this, Grid);
 
-		this._clicked = 0;
-	}
+        this._clicked = 0;
+    }
 
-	_createClass(Grid, [{
-		key: 'render',
-		value: function render() {
-			return wp.element.createElement(
-				'div',
-				null,
-				'This will be a GRID',
-				wp.element.createElement(
-					'a',
-					{ onClick: this.clicked.bind(this) },
-					'Click me! I was clicked ',
-					this._clicked,
-					' times'
-				)
-			);
-		}
-	}, {
-		key: 'clicked',
-		value: function clicked() {
-			this._clicked++;
-		}
-	}]);
+    _createClass(Grid, [{
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
+                null,
+                'This will be a GRID',
+                React.createElement(
+                    'a',
+                    { onClick: this.clicked.bind(this) },
+                    'Click me! I was clicked ',
+                    this._clicked,
+                    ' times'
+                )
+            );
+        }
+    }, {
+        key: 'clicked',
+        value: function clicked() {
+            this._clicked++;
+        }
+    }]);
 
-	return Grid;
+    return Grid;
 }();
 
 var grid = null;
 
+console.log(GridGutenberg);
+
 registerBlockType('palasthotel/the-grid', {
-	title: 'Grid',
-	icon: 'grid-view',
-	category: 'layout',
-	// only one grid per post allowed
-	useOnce: true,
-	// do not edit render html of grid in editor
-	html: false,
-	edit: function edit(props) {
+    title: 'Grid',
+    icon: 'grid-view',
+    category: 'layout',
+    // only one grid per post allowed
+    useOnce: true,
+    // do not edit render html of grid in editor
+    html: false,
+    edit: function edit(props) {
 
-		if (grid == null) grid = new Grid();
+        if (grid == null) grid = new Grid();
 
-		return grid.render();
-	},
-	save: function save(props) {
-		return wp.element.createElement(
-			'div',
-			null,
-			'This will be a GRID save'
-		);
-	}
-});
-
-registerBlockType('palasthotel/the-grid__posts', {
-	title: 'Posts',
-	icon: 'grid-view',
-	category: 'grid-view',
-	// do not edit render html of grid in editor
-	html: false,
-	edit: function edit(props) {
-
-		return wp.element.createElement(
-			'p',
-			null,
-			'Grid box with posts'
-		);
-	},
-	save: function save(props) {
-		return wp.element.createElement(
-			'div',
-			null,
-			'Grid box with posts'
-		);
-	}
+        return grid.render();
+    },
+    save: function save(props) {
+        return React.createElement(
+            'div',
+            null,
+            'This will be a GRID save'
+        );
+    }
 });
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=grid-block.built.map
