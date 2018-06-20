@@ -74,11 +74,6 @@ class grid_plugin {
 		new \grid_plugin\meta_boxes();
 
 		/**
-		 * wp ajax endpoint
-		 */
-		$this->get_ajax_endpoint();
-
-		/**
 		 *  Grid settings pages
 		 */
 		require( dirname(__FILE__) .'/classes/settings.inc' );
@@ -123,6 +118,11 @@ class grid_plugin {
 	 * init grid to post types
 	 */
 	function init() {
+
+		/**
+		 * wp ajax endpoint
+		 */
+		$this->get_ajax_endpoint();
 
 		$options = get_option( 'grid', array() );
 		if(isset($options['installed']))
@@ -220,8 +220,7 @@ class grid_plugin {
 		 * grid ajax endpoint once
 		 */
 		require_once( dirname(__FILE__) .'/classes/ajaxendpoint.inc');
-		global $grid_storage;
-		return new \grid_plugin\ajaxendpoint($grid_storage);
+		return new \grid_plugin\ajaxendpoint($this->get_storage());
 	}
 
 	/**

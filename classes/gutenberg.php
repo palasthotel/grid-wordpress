@@ -21,14 +21,17 @@ class Gutenberg {
 			$this->plugin->url . '/gutenberg/block/grid-block.built.js',
 			array( 'wp-blocks', 'wp-element' )
 		);
-		$grid_id = grid_wp_get_grid_by_postid( get_the_ID() );
 		$ajax = $this->plugin->get_ajax_endpoint();
-		//$types = $ajax->getContainerTypes( 1 );
+		$types = $ajax->perform( (object) array(
+			"component" => "grid.editing.container",
+			"method" => "getContainerTypes",
+			"params" => array(null),
+		));
 		wp_localize_script(
-			'grid-gutenberg-block-vars',
+			'grid-gutenberg-block',
 			'GridGutenberg',
 			array(
-				'containertypes' => array(
+				'containertypesdemo' => array(
 					array(
 						"type"           => "c-1d3-1d3-1d3",
 						"space_to_left"  => null,
@@ -42,7 +45,9 @@ class Gutenberg {
 						"numslots"       => "2"
 					),
 				),
-				//'containertypes'     => $this->plugin->get_ajax_endpoint()->getContainerTypes(  )
+				'containertypes'     => array_filter($types["result"],function($type){
+					return substr($type["type"], 0, 2) == "c-";
+				}),
 			)
 		);
 	}

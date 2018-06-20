@@ -87,7 +87,7 @@ class ajaxendpoint extends \grid_ajaxendpoint {
 		return $result;
 	}
 
-	public function getContainerTypes($grid_id)
+	public function getContainerTypes($grid_id=null)
 	{
 		$result=parent::getContainerTypes($grid_id);
 		if(strncmp("container:",$grid_id,strlen("container:"))==0)
