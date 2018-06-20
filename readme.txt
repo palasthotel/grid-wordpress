@@ -3,8 +3,8 @@ Contributors: edwardbock,mkernel
 Donate link: http://palasthotel.de/
 Tags: landingpage, editor, admin, page, containerist, grid
 Requires at least: 4.0
-Tested up to: 4.9.1
-Stable tag: 1.7.1
+Tested up to: 4.9.6
+Stable tag: 1.7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -74,6 +74,19 @@ Have a look at wordpress.org for plugins that provide new grid boxes or you can 
 2. Grid editor with Box list
 
 == Changelog ==
+
+= 1.7.4 =
+
+* new actions grid_publishGrid, grid_destroyGrid, grid_save_container, grid_delete_container, grid_save_slot, grid_save_box, grid_delete_box
+* epilog and prolog script safe
+
+= 1.7.3 =
+ * date query configuration for posts box. before and after date restriction possibility added.
+ * new box widget type input that allows to use all kings of HTML input types
+ * async bug fix: empty user display_name were not locking multiple edited grids
+
+= 1.7.2 =
+ * critical bug fix: when deleting grid styles all styled elements (container, slot, box) are deleted from grids
 
 = 1.7.1 =
  * templates in child theme support
@@ -291,7 +304,10 @@ Have a look at wordpress.org for plugins that provide new grid boxes or you can 
 
 == Upgrade Notice ==
 
-= 1.3.4 = 
+= 1.7.2 =
+Database constraint bug fix.
+
+= 1.3.4 =
 Grid works with custom ports on php strict level now
 
 = 1.3.1 =
