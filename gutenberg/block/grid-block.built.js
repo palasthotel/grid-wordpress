@@ -89,6 +89,16 @@ var Component = React.Component;
 var __ = wp.i18n.__;
 var registerBlockType = wp.blocks.registerBlockType;
 
+
+var Grid = [];
+window.Grid = Grid;
+setInterval(function () {
+    // TODO: please find a more efficient way
+    Grid.forEach(function (container) {
+        return container.updateIndex();
+    });
+}, 300);
+
 // https://github.com/WordPress/gutenberg/blob/master/editor/components/block-list/index.js#L21
 // https://github.com/WordPress/gutenberg/blob/master/docs/block-api.md
 // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
@@ -100,7 +110,7 @@ var GutenbergGridContainer = function (_Component) {
     function GutenbergGridContainer(props) {
         _classCallCheck(this, GutenbergGridContainer);
 
-        var _this = _possibleConstructorReturn(this, (GutenbergGridContainer.__proto__ || Object.getPrototypeOf(GutenbergGridContainer)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (GutenbergGridContainer.__proto__ || Object.getPrototypeOf(GutenbergGridContainer)).apply(this, arguments));
 
         _this.state = {
             index: 0
@@ -112,7 +122,14 @@ var GutenbergGridContainer = function (_Component) {
     _createClass(GutenbergGridContainer, [{
         key: "componentDidMount",
         value: function componentDidMount() {
-            console.log("Index is", this.getIndex());
+            Grid.push(this);
+        }
+    }, {
+        key: "componentWillUnmount",
+        value: function componentWillUnmount() {
+            Grid = Grid.filter(function (container) {
+                return container.el !== null;
+            });
         }
     }, {
         key: "getIndex",
@@ -122,13 +139,16 @@ var GutenbergGridContainer = function (_Component) {
             var myIndex = undefined;
             var containers = document.querySelectorAll(".grid-container");
             containers.forEach(function (container, index) {
-                console.log(_this2.el, container, index);
                 if (container.isSameNode(_this2.el)) {
                     myIndex = index;
                 }
             });
-            this.setState({ index: myIndex });
             return myIndex;
+        }
+    }, {
+        key: "updateIndex",
+        value: function updateIndex() {
+            this.setState({ index: this.getIndex() });
         }
     }, {
         key: "render",
@@ -160,7 +180,6 @@ GridGutenberg.containertypes.forEach(function (containertype) {
         // do not edit render html of grid in editor
         html: false,
         edit: function edit(props) {
-            console.log("EDIT");
             return React.createElement(GutenbergGridContainer, { type: containertype.type });
         },
         save: function save(props) {

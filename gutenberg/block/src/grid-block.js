@@ -1,8 +1,6 @@
 const React = wp.element;
 const {Component} = React;
 
-
-
 /**
  * Gutenpride
  * A gutenberg block that displays a powered by Gutenberg message
@@ -11,6 +9,12 @@ const {Component} = React;
 const {__} = wp.i18n;
 const {registerBlockType} = wp.blocks;
 
+let Grid = [];
+window.Grid = Grid;
+setInterval(()=>{
+	// TODO: please find a more efficient way
+	Grid.forEach((container)=> container.updateIndex());
+},300);
 
 // https://github.com/WordPress/gutenberg/blob/master/editor/components/block-list/index.js#L21
 // https://github.com/WordPress/gutenberg/blob/master/docs/block-api.md
@@ -19,29 +23,35 @@ const {registerBlockType} = wp.blocks;
 
 class GutenbergGridContainer extends Component{
     constructor( props ) {
-	    super(props);
-
+	    super( ...arguments );
 	    this.state = {
 	        index: 0,
         };
-
     }
 
     componentDidMount(){
-        console.log("Index is", this.getIndex());
+        Grid.push(this);
+    }
+
+    componentWillUnmount(){
+        Grid = Grid.filter((container) => {
+            return container.el !== null;
+        });
     }
 
     getIndex(){
         let myIndex = undefined;
         const containers = document.querySelectorAll(".grid-container");
         containers.forEach((container, index)=>{
-	        console.log(this.el, container, index);
 	            if(container.isSameNode(this.el)){
 	                myIndex = index;
 	            }
         });
-        this.setState({index: myIndex});
         return myIndex;
+    }
+
+    updateIndex(){
+        this.setState({index: this.getIndex()})
     }
 
     render() {
@@ -54,6 +64,8 @@ class GutenbergGridContainer extends Component{
     }
 }
 
+
+
 GridGutenberg.containertypes.forEach( (containertype) => {
     registerBlockType('palasthotel/the-grid-container-'+containertype.type, {
         title: 'Grid Container '+containertype.type,
@@ -62,7 +74,6 @@ GridGutenberg.containertypes.forEach( (containertype) => {
         // do not edit render html of grid in editor
         html: false,
         edit(props) {
-            console.log("EDIT");
             return <GutenbergGridContainer type={containertype.type}/>;
         },
         save(props) {
