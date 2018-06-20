@@ -6,58 +6,46 @@
 const {__} = wp.i18n;
 const {registerBlockType} = wp.blocks;
 
-const {TermTreeSelect} = wp.blocks;
-
-const label = __('This post proudly created in');
-
 
 // https://github.com/WordPress/gutenberg/blob/master/editor/components/block-list/index.js#L21
 // https://github.com/WordPress/gutenberg/blob/master/docs/block-api.md
 // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 // https://wordpress.org/gutenberg/handbook/blocks/creating-dynamic-blocks/
 
-class Grid {
-    constructor() {
+class GutenbergGridContainer {
+    constructor( type ) {
+        this._type = type;
         this._clicked = 0;
     }
 
     render() {
         return (
             <div>
-                This will be a GRID
-                <a onClick={this.clicked.bind(this)}>Click me! I was clicked {this._clicked} times</a>
+                This will be a GRID Container type {this._type}
             </div>
         )
     }
-
-    clicked() {
-        this._clicked++;
-    }
 }
 
-let grid = null;
+GridGutenberg.containertypes.map( (containertype, i) => {
+    registerBlockType('palasthotel/the-grid-container-'+containertype.type, {
+        title: 'Grid Container '+containertype.type,
+        icon: 'grid-view', // TODO change icon according to container type
+        category: 'layout',
+        // do not edit render html of grid in editor
+        html: false,
+        edit(props) {
 
-console.log(GridGutenberg);
+            const grid_container = new GutenbergGridContainer( containertype.type );
 
-registerBlockType('palasthotel/the-grid', {
-    title: 'Grid',
-    icon: 'grid-view',
-    category: 'layout',
-    // only one grid per post allowed
-    useOnce: true,
-    // do not edit render html of grid in editor
-    html: false,
-    edit(props) {
-
-        if (grid == null) grid = new Grid();
-
-        return grid.render();
-    },
-    save(props) {
-        return (
-            <div>
-                This will be a GRID save
-            </div>
-        );
-    },
-});
+            return grid_container.render();
+        },
+        save(props) {
+            return (
+                <div>
+                    This will be a GRID Container save // TODO maybe render in php like dynamic block
+                </div>
+            );
+        },
+    });
+})

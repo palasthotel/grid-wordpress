@@ -25,7 +25,7 @@ class Gutenberg {
 		$ajax = $this->plugin->get_ajax_endpoint();
 		//$types = $ajax->getContainerTypes( 1 );
 		wp_localize_script(
-			'grid-gutenberg-block-vars',
+			'grid-gutenberg-block',
 			'GridGutenberg',
 			array(
 				'containertypes' => array(
