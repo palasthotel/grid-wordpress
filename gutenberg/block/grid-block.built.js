@@ -144,7 +144,7 @@ var GutenbergGridContainer = function (_Component) {
                     }, className: "grid-container" },
                 index,
                 " This will be a GRID Container type ",
-                this._type
+                this.props.type
             );
         }
     }]);
@@ -152,10 +152,22 @@ var GutenbergGridContainer = function (_Component) {
     return GutenbergGridContainer;
 }(Component);
 
+var container_icon = function container_icon(columns, type) {
+    var rects = [];
+    for (var i = 0; i < columns; i++) {
+        rects.push(React.createElement("rect", { x: 2 * i, fill: "silver", width: "2", height: "2" }));
+    }
+    return React.createElement(
+        "svg",
+        { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 20 20" },
+        rects
+    );
+};
+
 GridGutenberg.containertypes.forEach(function (containertype) {
     registerBlockType('palasthotel/the-grid-container-' + containertype.type, {
         title: 'Grid Container ' + containertype.type,
-        icon: 'grid-view', // TODO change icon according to container type
+        icon: container_icon(containertype.numslots, containertype.type), // TODO change accpording to container type
         category: 'layout',
         // do not edit render html of grid in editor
         html: false,

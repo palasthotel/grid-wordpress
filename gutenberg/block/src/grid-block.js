@@ -1,8 +1,6 @@
 const React = wp.element;
 const {Component} = React;
 
-
-
 /**
  * Gutenpride
  * A gutenberg block that displays a powered by Gutenberg message
@@ -48,16 +46,26 @@ class GutenbergGridContainer extends Component{
         const {index} = this.state;
         return (
 	        <div ref={el => this.el = el} className="grid-container">
-                {index} This will be a GRID Container type {this._type}
+                {index} This will be a GRID Container type {this.props.type}
 	        </div>
         );
     }
 }
 
+const container_icon = (columns, type) => {
+    let rects = [];
+    for (let i = 0; i < columns; i++) {
+        rects.push(<rect x={2*i} fill="silver" width="2" height="2"/>);
+    }
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">{rects}</svg>
+    )
+}
+
 GridGutenberg.containertypes.forEach( (containertype) => {
     registerBlockType('palasthotel/the-grid-container-'+containertype.type, {
         title: 'Grid Container '+containertype.type,
-        icon: 'grid-view', // TODO change icon according to container type
+        icon: container_icon(containertype.numslots, containertype.type), // TODO change accpording to container type
         category: 'layout',
         // do not edit render html of grid in editor
         html: false,
