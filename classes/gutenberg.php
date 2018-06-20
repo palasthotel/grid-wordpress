@@ -27,6 +27,13 @@ class Gutenberg {
 			"method" => "getContainerTypes",
 			"params" => array(null),
 		));
+		$filtered = array_filter($types["result"], function($type){
+			return substr($type["type"], 0, 2) == "c-";
+		});
+		$containerTypes = array();
+		foreach ($filtered as $type){
+			$containerTypes[] = $type;
+		}
 		wp_localize_script(
 			'grid-gutenberg-block',
 			'GridGutenberg',
@@ -45,9 +52,7 @@ class Gutenberg {
 						"numslots"       => "2"
 					),
 				),
-				'containertypes'     => array_filter($types["result"],function($type){
-					return substr($type["type"], 0, 2) == "c-";
-				}),
+				'containertypes' => $containerTypes,
 			)
 		);
 	}
