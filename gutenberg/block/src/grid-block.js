@@ -1,3 +1,8 @@
+const React = wp.element;
+const {Component} = React;
+
+
+
 /**
  * Gutenpride
  * A gutenberg block that displays a powered by Gutenberg message
@@ -12,22 +17,44 @@ const {registerBlockType} = wp.blocks;
 // https://wordpress.org/gutenberg/handbook/block-api/block-edit-save/
 // https://wordpress.org/gutenberg/handbook/blocks/creating-dynamic-blocks/
 
-class GutenbergGridContainer {
-    constructor( type ) {
-        this._type = type;
-        this._clicked = 0;
+class GutenbergGridContainer extends Component{
+    constructor( props ) {
+	    super(props);
+
+	    this.state = {
+	        index: 0,
+        };
+
+    }
+
+    componentDidMount(){
+        console.log("Index is", this.getIndex());
+    }
+
+    getIndex(){
+        let myIndex = undefined;
+        const containers = document.querySelectorAll(".grid-container");
+        containers.forEach((container, index)=>{
+	        console.log(this.el, container, index);
+	            if(container.isSameNode(this.el)){
+	                myIndex = index;
+	            }
+        });
+        this.setState({index: myIndex});
+        return myIndex;
     }
 
     render() {
+        const {index} = this.state;
         return (
-            <div>
-                This will be a GRID Container type {this._type}
-            </div>
-        )
+	        <div ref={el => this.el = el} className="grid-container">
+                {index} This will be a GRID Container type {this._type}
+	        </div>
+        );
     }
 }
 
-GridGutenberg.containertypes.map( (containertype, i) => {
+GridGutenberg.containertypes.forEach( (containertype) => {
     registerBlockType('palasthotel/the-grid-container-'+containertype.type, {
         title: 'Grid Container '+containertype.type,
         icon: 'grid-view', // TODO change icon according to container type
@@ -35,10 +62,8 @@ GridGutenberg.containertypes.map( (containertype, i) => {
         // do not edit render html of grid in editor
         html: false,
         edit(props) {
-
-            const grid_container = new GutenbergGridContainer( containertype.type );
-
-            return grid_container.render();
+            console.log("EDIT");
+            return <GutenbergGridContainer type={containertype.type}/>;
         },
         save(props) {
             return (
@@ -48,4 +73,4 @@ GridGutenberg.containertypes.map( (containertype, i) => {
             );
         },
     });
-})
+});
