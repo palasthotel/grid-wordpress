@@ -665,10 +665,33 @@ var GutenbergGridContainer = function (_Component) {
     return GutenbergGridContainer;
 }(Component);
 
+var container_icon = function container_icon(columns, type) {
+    var grid_slots = type.split('-');
+    var slot_gap = 2;
+    var width = 60 - (parseInt(columns) - 1) * slot_gap;
+    var rects = [];
+    var x = 0;
+    for (var i = 0; i < columns; i++) {
+        var slot_width = 0;
+        slot_width = grid_slots[i].replace(/d/g, '/');
+        var numbers = slot_width.split('/');
+        slot_width = parseInt(numbers[0]) / parseInt(numbers[1]) * width;
+        rects.push(wp.element.createElement("rect", { x: x, fill: "silver", width: slot_width, height: "100%" }));
+        x = x + slot_width + slot_gap;
+    }
+    return wp.element.createElement(
+        "svg",
+        { xmlns: "http://www.w3.org/2000/svg", style: { width: "100%" } },
+        rects
+    );
+};
+
 GridGutenberg.containertypes.forEach(function (containertype) {
+    var icon_type = containertype.type.replace("c-", "");
+    var name = icon_type.replace(/d/g, '/');
     registerBlockType('palasthotel/the-grid-container-' + containertype.type, {
-        title: 'Grid Container ' + containertype.type,
-        icon: 'grid-view', // TODO change icon according to container type
+        title: 'Grid Container ' + name,
+        icon: container_icon(containertype.numslots, icon_type),
         category: 'layout',
         // do not edit render html of grid in editor
         html: false,

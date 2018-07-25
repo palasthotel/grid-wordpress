@@ -117,12 +117,31 @@ class GutenbergGridContainer extends Component{
     }
 }
 
-
+const container_icon = (columns, type) => {
+    const grid_slots = type.split('-');
+    const slot_gap = 2;
+    const width = 60 - ((parseInt(columns)-1) * slot_gap);
+    let rects = [];
+    let x = 0;
+    for (let i = 0; i < columns; i++) {
+        let slot_width = 0;
+        slot_width = grid_slots[i].replace(/d/g, '/');
+        const numbers = slot_width.split('/');
+        slot_width = parseInt(numbers[0]) / parseInt(numbers[1]) * width;
+        rects.push(<rect x={x} fill="silver" width={slot_width} height="100%"/>);
+        x = x + slot_width + slot_gap;
+    }
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" style={{width:"100%"}}>{rects}</svg>
+    )
+}
 
 GridGutenberg.containertypes.forEach( (containertype) => {
+    const icon_type = containertype.type.replace("c-", "");
+    const name = icon_type.replace(/d/g, '/');
     registerBlockType('palasthotel/the-grid-container-'+containertype.type, {
-        title: 'Grid Container '+containertype.type,
-        icon: 'grid-view', // TODO change icon according to container type
+        title: 'Grid Container '+name,
+        icon: container_icon(containertype.numslots, icon_type),
         category: 'layout',
         // do not edit render html of grid in editor
         html: false,
