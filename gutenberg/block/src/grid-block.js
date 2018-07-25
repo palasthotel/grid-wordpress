@@ -1,20 +1,64 @@
-const React = wp.element;
-const {Component} = React;
 
-/**
- * Gutenpride
- * A gutenberg block that displays a powered by Gutenberg message
- */
+// const React = require("../../../lib/node_modules/react");
+const React = wp.element;
+const { Component } = React;
+
+import GridContainer from "../../../lib/src/component/the-grid/container/container-raw";
+
+import GridSlot from "../../../lib/src/component/the-grid/slot/slot";
 
 const {__} = wp.i18n;
 const {registerBlockType} = wp.blocks;
 
-let Grid = [];
-window.Grid = Grid;
-setInterval(()=>{
-	// TODO: please find a more efficient way
-	Grid.forEach((container)=> container.updateIndex());
-},300);
+class Gridenberg {
+    constructor(){
+        this.containers = [];
+        this.isSaving = false;
+        this.hasChanged = false;
+
+        // Update container index
+        setInterval(()=>{
+	        this.containers.forEach((container)=> container.updateIndex());
+        },330);
+    }
+
+    // save contents to grid
+    save(){
+        if(this.isSaving || !this.hasChanged) return;
+        this.isSaving = true;
+
+        setTimeout(()=>{
+	        const containers = this.containers.map((container) => {
+		        return {
+			        index: container.getIndex(),
+			        container
+		        }
+	        }).sort((a,b) => a.index - b.index);
+
+	        console.log("save containers", containers);
+			this.hasChanged = false;
+	        this.isSaving = false;
+        },3000);
+    }
+
+	addContainer(container){
+		this.containers.push(container);
+		this.hasChanged = true;
+		this.save()
+	}
+	removeContainer(){
+		this.containers = this.containers.filter((container) => {
+			return container.el !== null;
+		});
+		this.hasChanged = true;
+		this.save();
+	}
+}
+
+const gridenberg = window.Gridenberg = new Gridenberg();
+
+
+
 
 // https://github.com/WordPress/gutenberg/blob/master/editor/components/block-list/index.js#L21
 // https://github.com/WordPress/gutenberg/blob/master/docs/block-api.md
@@ -22,21 +66,20 @@ setInterval(()=>{
 // https://wordpress.org/gutenberg/handbook/blocks/creating-dynamic-blocks/
 
 class GutenbergGridContainer extends Component{
-    constructor( props ) {
-	    super( ...arguments );
+
+    constructor(props) {
+	    super(  );
 	    this.state = {
 	        index: 0,
         };
     }
 
     componentDidMount(){
-        Grid.push(this);
+	    gridenberg.addContainer(this);
     }
 
     componentWillUnmount(){
-        Grid = Grid.filter((container) => {
-            return container.el !== null;
-        });
+	    gridenberg.removeContainer();
     }
 
     getIndex(){
@@ -51,14 +94,24 @@ class GutenbergGridContainer extends Component{
     }
 
     updateIndex(){
-        this.setState({index: this.getIndex()})
+    	const index = this.getIndex();
+    	if(this.state.index !== index){
+    		gridenberg.hasChanged = true;
+		    this.setState({index})
+		    gridenberg.save();
+	    }
+
     }
 
     render() {
         const {index} = this.state;
         return (
 	        <div ref={el => this.el = el} className="grid-container">
-                {index} This will be a GRID Container type {this._type}
+		        <GridContainer
+		        index={index}>
+
+		        </GridContainer>
+                {/*<p>{index} This will be a GRID Container type {this.props.type}</p>*/}
 	        </div>
         );
     }
@@ -74,14 +127,15 @@ GridGutenberg.containertypes.forEach( (containertype) => {
         // do not edit render html of grid in editor
         html: false,
         edit(props) {
-            return <GutenbergGridContainer type={containertype.type}/>;
+	        console.log("EDIT");
+            return <GutenbergGridContainer
+                type={containertype.type}
+            />;
         },
-        save(props) {
-            return (
-                <div>
-                    This will be a GRID Container save // TODO maybe render in php like dynamic block
-                </div>
-            );
+        save() {
+        	console.log("SAVE");
+	        gridenberg.save();
+            return null;
         },
     });
 });
