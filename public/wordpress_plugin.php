@@ -128,7 +128,10 @@ class Plugin {
 		$this->gridTemplate = new Template();
 		$this->gridAjax     = new Ajax();
 		$this->gridAPI      = new API($this->gridCore, $this->gridAjax, $this->gridTemplate);
-		$this->gridEditor   = new Editor($this->gridCore->storage);
+		$this->gridEditor   = new Editor(
+			$this->gridCore->storage,
+			$this->url."/lib/grid/"
+		);
 
 		/**
 		 * wrapper for grid library storage
@@ -406,6 +409,7 @@ class Plugin {
 		/**
 		 * enqueue the js array
 		 */
+		wp_enqueue_media();
 		foreach ( $js as $idx => $file ) {
 			wp_enqueue_script(
 				"grid_js_lib_$idx",
@@ -414,6 +418,7 @@ class Plugin {
 				filemtime(plugin_dir_path(__FILE__)."/lib/grid/$file")
 			);
 		}
+
 		wp_enqueue_script(
 			"grid_wordpress_js",
 			plugins_url( 'grid-wordpress.js', __FILE__ ),
