@@ -4,7 +4,7 @@ Donate link: http://palasthotel.de/
 Tags: landingpage, editor, admin, page, containerist, grid
 Requires at least: 4.0
 Tested up to: 5.5.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -85,6 +85,10 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 2. Grid editor with Box list
 
 == Changelog ==
+
+= 2.1.1 =
+* media widget fix
+* ckeditor local installation
 
 = 2.1.0 =
 * Refactoring: Updates and code optimizations
