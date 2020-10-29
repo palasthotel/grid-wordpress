@@ -3,7 +3,7 @@
  * Plugin Name: Grid
  * Plugin URI: https://github.com/palasthotel/grid-wordpress
  * Description: Helps layouting pages with containerist.
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: Palasthotel <rezeption@palasthotel.de> (in person: Benjamin Birkenhake, Edward Bock, Enno Welbers, Jana Marie Eggebrecht)
  * Author URI: http://www.palasthotel.de
  * Text Domain: grid
@@ -22,13 +22,10 @@ namespace Palasthotel\Grid\WordPress;
 // If this file is called directly, abort.
 use Exception;
 use Grid\Constants\GridCSSVariant;
-use Grid\Constants\GridCssVariantFlexbox;
 use Palasthotel\Grid\API;
-use Palasthotel\Grid\Core;
 use Palasthotel\Grid\ContainerEditor;
+use Palasthotel\Grid\Core;
 use Palasthotel\Grid\Editor;
-use Palasthotel\Grid\Endpoint;
-use Palasthotel\Grid\Storage;
 use Palasthotel\Grid\Template;
 use const Grid\Constants\GRID_CSS_VARIANT_NONE;
 use const Grid\Constants\GRID_CSS_VARIANT_TABLE;
