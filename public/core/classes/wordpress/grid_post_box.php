@@ -6,6 +6,7 @@
  * @package Palasthotel\Grid-WordPress
  */
 
+use Palasthotel\Grid\Template;
 use Palasthotel\Grid\WordPress\Plugin;
 
 /**
@@ -54,19 +55,8 @@ class grid_post_box extends grid_box {
 				}
 				
 				ob_start();
-
-				$found = false;
-				foreach( Plugin::instance()->gridTemplate::paths() as $templatesPath) {
-					if(file_exists($templatesPath.'/post_content.tpl.php')) {
-						$found=true;
-						include $templatesPath.'/post_content.tpl.php';
-					}
-					if($found) break;
-				}
-
-				if ( ! $found ) {
-					include dirname( __FILE__ ) . '/../../templates/wordpress/post_content.tpl.php';
-				}
+				$path = Template::getPath('post_content.tpl.php');
+				include $path ? $path : dirname( __FILE__ ) . '/../../templates/wordpress/post_content.tpl.php';
 				$output = ob_get_clean();
 
 				/**

@@ -291,7 +291,7 @@ class Plugin {
 		$templatesPaths[]        = dirname( __FILE__ ) . "/core/templates/wordpress";
 
 		foreach ($templatesPaths as $path){
-			$this->gridTemplate->addTemplatesPath($path);
+			$this->gridTemplate->addPath($path);
 		}
 	}
 

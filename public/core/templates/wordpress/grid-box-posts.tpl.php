@@ -6,6 +6,8 @@
  * @package Palasthotel\Grid\Wordpress
  */
 
+use Palasthotel\Grid\Template;
+
 $classes = $this->classes;
 array_push( $classes, 'grid-box' );
 
@@ -42,22 +44,8 @@ if ( ! empty( $this->style ) ) {
 			grid_avoid_doublets_add( get_the_ID(), $this->grid->gridid );
 		}
 
-		$found = false;
-		// Checks if WordPress has a template for post content ...
-		if(is_array($this->storage->templatesPaths))
-		{
-			foreach($this->storage->templatesPaths as $templatesPath) {
-				if(file_exists($templatesPath.'/post_content.tpl.php')) {
-					$found=true;
-					include $templatesPath.'/post_content.tpl.php';
-				}
-				if($found) break;
-			}
-		}
-		// ... if not, uses Grid template for post content
-		if ( ! $found ) {
-			include dirname( __FILE__ ) . '/post_content.tpl.php';
-		}
+		$path = Template::getPath('post_content.tpl.php');
+		include $path ? $path : dirname( __FILE__ ) . '/post_content.tpl.php';
 	}
 	wp_reset_postdata();
 	// END of WordPress Loop
