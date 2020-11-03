@@ -247,7 +247,7 @@ class Settings extends _Component
 	}
 
 	function default_box_style_html() {
-		$this->plugin->gridCore->storage;
+		$storage = $this->plugin->gridCore->storage;
 		$types = $storage->fetchBoxStyles();
 		$setting = get_option( 'grid_default_box_style', '__NONE__' );
 		?>
