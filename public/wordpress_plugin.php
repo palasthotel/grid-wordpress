@@ -10,7 +10,7 @@
  * Domain Path: /languages
  *
  * Requires at least: 4.0
- * Tested up to: 5.5.3
+ * Tested up to: 5.6.0
  * License: http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  *
  * @copyright Copyright (c) 2020, Palasthotel
