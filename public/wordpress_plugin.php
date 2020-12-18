@@ -447,7 +447,7 @@ class Plugin {
 	function activate(){
 		$options = get_option( 'grid', array() );
 		if ( ! isset( $options['installed'] ) ) {
-			$schema = $this->gridAPI->getDatabaseSchema();
+			$schema = $this->gridCore->getDatabaseSchema();
 			$schema['grid_nodes'] = array(
 				'description' => t( 'references nodes' ),
 				'fields' => array(
@@ -531,9 +531,9 @@ class Plugin {
 					$query.= ' COLLATE='.$data['collate'];
 				}
 				try{
-					$result = $this->gridQuery->execute( $query );
+					$result = $this->gridQuery->prefixAndExecute( $query );
 					if($result === false){
-						throw new Exception($query.' failed: '.$grid_connection->error );
+						throw new Exception($query.' failed: '.$result );
 					}
 				} catch (Exception $e){
 					error_log($e->getMessage(), 4);
@@ -543,7 +543,7 @@ class Plugin {
 
 			}
 
-			$this->gridAPI->install();
+			$this->gridCore->install();
 			$update = new Update($this->gridQuery);
 			$update->install();
 
@@ -617,9 +617,9 @@ class Plugin {
 		delete_option('grid');
 		delete_option('grid_landing_page_enabled');
 		delete_option('grid_default_container');
-		$schema = self::instance()->api->getDatabaseSchema();
+		$schema = self::instance()->gridCore->getDatabaseSchema();
 		$schema['grid_nodes']=array();
-		self::instance()->api->uninstall();
+		self::instance()->gridCore->uninstall();
 		foreach($schema as $tablename=>$data)
 		{
 			$query = "drop table {$tablename}";
