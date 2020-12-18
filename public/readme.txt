@@ -3,7 +3,7 @@ Contributors: edwardbock, mkernel, palasthotel
 Donate link: http://palasthotel.de/
 Tags: landingpage, editor, admin, page, containerist, grid
 Requires at least: 4.0
-Tested up to: 5.5.3
+Tested up to: 5.6.0
 Stable tag: 2.1.5
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
@@ -88,6 +88,7 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 
 
 = 2.1.5 =
+* Bugfix: Installation broken because of refactoring typos
 * Added Search Form Box
 
 = 2.1.4 =
