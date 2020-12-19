@@ -10,6 +10,8 @@ return array(
     'Palasthotel\\Grid\\WordPress\\Boxes' => $baseDir . '/classes/Boxes.php',
     'Palasthotel\\Grid\\WordPress\\ContainerFactory' => $baseDir . '/classes/ContainerFactory.php',
     'Palasthotel\\Grid\\WordPress\\Copy' => $baseDir . '/classes/Copy.php',
+    'Palasthotel\\Grid\\WordPress\\GridHook' => $baseDir . '/classes/GridHook.php',
+    'Palasthotel\\Grid\\WordPress\\GridQuery' => $baseDir . '/classes/GridQuery.php',
     'Palasthotel\\Grid\\WordPress\\MetaBoxes' => $baseDir . '/classes/MetaBoxes.php',
     'Palasthotel\\Grid\\WordPress\\PositionInPost' => $baseDir . '/classes/PositionInPost.php',
     'Palasthotel\\Grid\\WordPress\\Post' => $baseDir . '/classes/Post.php',
@@ -21,4 +23,5 @@ return array(
     'Palasthotel\\Grid\\WordPress\\Styles' => $baseDir . '/classes/Styles.php',
     'Palasthotel\\Grid\\WordPress\\TheGrid' => $baseDir . '/classes/TheGrid.php',
     'Palasthotel\\Grid\\WordPress\\Update' => $baseDir . '/classes/Update.php',
+    'Palasthotel\\Grid\\WordPress\\_Component' => $baseDir . '/classes/_Component.php',
 );

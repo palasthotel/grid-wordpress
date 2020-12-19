@@ -2,6 +2,8 @@
 
 namespace Palasthotel\Grid\WordPress;
 
+use Grid\Constants\GridCssVariantNone;
+use Grid\Constants\GridCssVariantTable;
 use Palasthotel\Grid\AbstractQuery;
 use Palasthotel\Grid\UpdateBase;
 use const Grid\Constants\GRID_CSS_VARIANT_TABLE;
@@ -33,7 +35,8 @@ class Update extends UpdateBase
 
 	public function update_2(){
 		// default variant before update
-		update_option(Plugin::OPTION_FRONTEND_CSS_VARIANT, GRID_CSS_VARIANT_TABLE);
+		$variant = new GridCssVariantTable();
+		update_option(Plugin::OPTION_FRONTEND_CSS_VARIANT, $variant->slug());
 	}
 
 	// ------------------------------------------------

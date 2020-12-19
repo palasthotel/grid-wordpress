@@ -25,6 +25,8 @@ class ComposerStaticInit910fee3465593eef031f7207076f1151
         'Palasthotel\\Grid\\WordPress\\Boxes' => __DIR__ . '/../..' . '/classes/Boxes.php',
         'Palasthotel\\Grid\\WordPress\\ContainerFactory' => __DIR__ . '/../..' . '/classes/ContainerFactory.php',
         'Palasthotel\\Grid\\WordPress\\Copy' => __DIR__ . '/../..' . '/classes/Copy.php',
+        'Palasthotel\\Grid\\WordPress\\GridHook' => __DIR__ . '/../..' . '/classes/GridHook.php',
+        'Palasthotel\\Grid\\WordPress\\GridQuery' => __DIR__ . '/../..' . '/classes/GridQuery.php',
         'Palasthotel\\Grid\\WordPress\\MetaBoxes' => __DIR__ . '/../..' . '/classes/MetaBoxes.php',
         'Palasthotel\\Grid\\WordPress\\PositionInPost' => __DIR__ . '/../..' . '/classes/PositionInPost.php',
         'Palasthotel\\Grid\\WordPress\\Post' => __DIR__ . '/../..' . '/classes/Post.php',
@@ -36,6 +38,7 @@ class ComposerStaticInit910fee3465593eef031f7207076f1151
         'Palasthotel\\Grid\\WordPress\\Styles' => __DIR__ . '/../..' . '/classes/Styles.php',
         'Palasthotel\\Grid\\WordPress\\TheGrid' => __DIR__ . '/../..' . '/classes/TheGrid.php',
         'Palasthotel\\Grid\\WordPress\\Update' => __DIR__ . '/../..' . '/classes/Update.php',
+        'Palasthotel\\Grid\\WordPress\\_Component' => __DIR__ . '/../..' . '/classes/_Component.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
