@@ -4,7 +4,7 @@ Donate link: http://palasthotel.de/
 Tags: landingpage, editor, admin, page, containerist, grid
 Requires at least: 4.0
 Tested up to: 5.6.0
-Stable tag: 2.1.5
+Stable tag: 2.1.6
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
 
@@ -86,6 +86,8 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 
 == Changelog ==
 
+= 2.1.6 =
+* Bugfix: Undefined constant GRID_CSS_VARIANT_TABLE on grid update fix
 
 = 2.1.5 =
 * Bugfix: Installation broken because of refactoring typos
