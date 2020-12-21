@@ -14,7 +14,7 @@ if ( ! empty( $this->style ) ) {
 }
 
 if ( isset( $content ) && isset( $content->publish ) && 'publish' == $content->publish ) : ?>
-    <div class="<?php echo esc_attr( implode( $classes, ' ' ) ); ?>">
+    <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
         <?php if ( ! empty( $this->title ) ) : ?>
             <?php if ( ! empty( $this->titleurl ) ) : ?>
                 <h2 class="grid-box-title b-title"><a href="<?php echo esc_url( $this->titleurl ); ?>"><?php echo $this->title; ?></a></h2>
