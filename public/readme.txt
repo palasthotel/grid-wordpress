@@ -86,6 +86,10 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 
 == Changelog ==
 
+= 2.1.7 =
+* Bugfix: Media box cannot use pdf files
+* Library updates
+
 = 2.1.6 =
 * Bugfix: Undefined constant GRID_CSS_VARIANT_TABLE on grid update fix
 
