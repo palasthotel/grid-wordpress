@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Palasthotel\WordPress;
-
 
 use Palasthotel\WordPress\Config\TextdomainConfig;
 use ReflectionException;
@@ -33,16 +31,13 @@ abstract class Plugin {
 		$this->onCreate();
 
 		if( $this->textdomainConfig instanceof TextdomainConfig){
-			$langaugesDir = $this->path. '/'. $this->textdomainConfig->languages;
-			if(!is_dir($langaugesDir)){
-				error_log("Could not find languages directory $langaugesDir");
-			} else {
+			add_action('init', function (){
 				load_plugin_textdomain(
 					$this->textdomainConfig->domain,
 					false,
-					$this->path. '/'. $this->textdomainConfig->languages
+					$this->textdomainConfig->languages
 				);
-			}
+			});
 		}
 
 		register_activation_hook( $ref->getFileName(), array( $this, "onActivation" ) );

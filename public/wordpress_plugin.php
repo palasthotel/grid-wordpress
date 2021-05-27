@@ -99,6 +99,7 @@ class Plugin extends \Palasthotel\WordPress\Plugin {
 		// ------------------------------------
 		$this->textdomainConfig = new TextdomainConfig(
 			Plugin::DOMAIN,
+			__FILE__,
 			"languages"
 		);
 

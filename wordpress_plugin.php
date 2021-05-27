@@ -17,11 +17,10 @@ use Palasthotel\Grid\WordPress\Plugin;
 
 include dirname(__FILE__) . "/public/wordpress_plugin.php";
 
-function grid_dev_activate() {
-	Plugin::instance()->activate();
-}
-register_activation_hook( __FILE__, 'grid_dev_activate' );
-function grid_dev_deactivate() {
-	Plugin::uninstall();
-}
-register_deactivation_hook( __FILE__, 'grid_dev_deactivate' );
+register_activation_hook(__FILE__, function($multisite){
+	Plugin::instance()->onActivation($multisite);
+});
+
+register_deactivation_hook(__FILE__, function($multisite){
+	Plugin::instance()->onDeactivation($multisite);
+});

@@ -8,6 +8,8 @@ This composer library provides php class helpers for typical WordPress extension
 
 MAJOR version updates will be separated to a new versions namespace so they can be used in parallel to older versions.
 
+**Everything below MAJOR 1 can have breaking changes**
+
 ## Get started
 
 Add the following to your composer.json
@@ -45,6 +47,7 @@ class MyPlugin extends \Palasthotel\WordPress\Plugin {
         // (optional) language path settings
         $this->textdomainConfig = new \Palasthotel\WordPress\Config\TextdomainConfig(
             "my-plugin-domain", // the text domain of your plugin
+            __FILE__, // in plugin base dir
             "languages" // relative path in your plugin directory
         );
     }

@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/palasthotel/wp-components.git",
-                "reference": "f8b391719d57533f122f03d91a2677084bfe6ef5"
+                "reference": "868a4f16a376ddc5a111ddd3e1d62e8721b08bf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palasthotel/wp-components/zipball/f8b391719d57533f122f03d91a2677084bfe6ef5",
-                "reference": "f8b391719d57533f122f03d91a2677084bfe6ef5",
+                "url": "https://api.github.com/repos/palasthotel/wp-components/zipball/868a4f16a376ddc5a111ddd3e1d62e8721b08bf5",
+                "reference": "868a4f16a376ddc5a111ddd3e1d62e8721b08bf5",
                 "shasum": ""
             },
-            "time": "2021-05-27T04:51:35+00:00",
+            "time": "2021-05-27T06:06:19+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {

@@ -9,8 +9,9 @@ namespace Palasthotel\WordPress\Config;
  * @property string languages
  */
 class TextdomainConfig {
-	public function __construct(string $domain, string $relativePathToLangFolder) {
+
+	public function __construct(string $domain, string $__file__inPluginBaseDir, string $relativeLanguagesPath) {
 		$this->domain = $domain;
-		$this->languages = $relativePathToLangFolder;
+		$this->languages = dirname( plugin_basename( $__file__inPluginBaseDir ) ) . "/" . $relativeLanguagesPath;
 	}
 }

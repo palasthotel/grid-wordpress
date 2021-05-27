@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '044319d9bc61546bd904ca098a6d5212b76676df',
+    'reference' => '78489df2385c80e867028330728ee40da47cbec0',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '044319d9bc61546bd904ca098a6d5212b76676df',
+      'reference' => '78489df2385c80e867028330728ee40da47cbec0',
     ),
     'palasthotel/wp-components' => 
     array (
@@ -51,7 +51,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'f8b391719d57533f122f03d91a2677084bfe6ef5',
+      'reference' => '868a4f16a376ddc5a111ddd3e1d62e8721b08bf5',
     ),
   ),
 );
