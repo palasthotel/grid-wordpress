@@ -13,18 +13,23 @@ echo "Syncing files..."
 rsync -rL  "$PROJECT_PATH/public/" "$DEST_PATH/"
 
 echo "Cleanup files..."
-rm "$DEST_PATH/composer.json"
-rm "$DEST_PATH/lib/grid/.gitignore"
-rm "$DEST_PATH/lib/grid/Butlerfile"
-rm "$DEST_PATH/lib/grid/composer.json"
-rm "$DEST_PATH/lib/grid/package.json"
-rm "$DEST_PATH/lib/grid/package-lock.json"
-if [ -d "$DEST_PATH/lib/grid/node_modules" ]; then
-  rm -rf "$DEST_PATH/lib/grid/node_modules"
+cd "$DEST_PATH"
+composer install --no-cache
+composer update --no-cache
+composer dump-autoload
+rm composer.json
+rm composer.lock
+rm lib/grid/.gitignore
+rm lib/grid/Butlerfile
+rm lib/grid/composer.json
+rm lib/grid/package.json
+rm lib/grid/package-lock.json
+if [ -d lib/grid/node_modules ]; then
+  rm -rf lib/grid/node_modules
 fi
-rm "$DEST_PATH"/lib/grid/webpack*
-rm -r "$DEST_PATH/lib/grid/src"
-rm -r "$DEST_PATH/lib/grid/scss"
+rm lib/grid/webpack*
+rm -r lib/grid/src
+rm -r lib/grid/scss
 
 echo "Generating zip file..."
 cd "$BUILD_PATH" || exit
