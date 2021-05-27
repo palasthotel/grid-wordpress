@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'Palasthotel\\Grid\\WordPress\\Ajax' => $baseDir . '/classes/Ajax.php',
     'Palasthotel\\Grid\\WordPress\\Boxes' => $baseDir . '/classes/Boxes.php',
     'Palasthotel\\Grid\\WordPress\\ContainerFactory' => $baseDir . '/classes/ContainerFactory.php',

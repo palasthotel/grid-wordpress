@@ -9,11 +9,16 @@ class ComposerStaticInit910fee3465593eef031f7207076f1151
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
+            'Palasthotel\\WordPress\\' => 22,
             'Palasthotel\\Grid\\WordPress\\' => 27,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Palasthotel\\WordPress\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/palasthotel/wp-components/src',
+        ),
         'Palasthotel\\Grid\\WordPress\\' => 
         array (
             0 => __DIR__ . '/../..' . '/classes',
@@ -21,6 +26,7 @@ class ComposerStaticInit910fee3465593eef031f7207076f1151
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Palasthotel\\Grid\\WordPress\\Ajax' => __DIR__ . '/../..' . '/classes/Ajax.php',
         'Palasthotel\\Grid\\WordPress\\Boxes' => __DIR__ . '/../..' . '/classes/Boxes.php',
         'Palasthotel\\Grid\\WordPress\\ContainerFactory' => __DIR__ . '/../..' . '/classes/ContainerFactory.php',

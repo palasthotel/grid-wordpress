@@ -27,12 +27,16 @@ use Palasthotel\Grid\ContainerEditor;
 use Palasthotel\Grid\Core;
 use Palasthotel\Grid\Editor;
 use Palasthotel\Grid\Template;
+use Palasthotel\WordPress\Config\TextdomainConfig;
 use const Grid\Constants\GRID_CSS_VARIANT_NONE;
 use const Grid\Constants\GRID_CSS_VARIANT_TABLE;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+require_once dirname(__FILE__). "/lib/grid/vendor/autoload.php";
+require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
 /**
  * @property string dir
@@ -54,7 +58,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @property Settings settings
  * @property Template gridTemplate
  */
-class Plugin {
+class Plugin extends \Palasthotel\WordPress\Plugin {
 
 	// ------------------------------------
 	// constants
@@ -82,7 +86,7 @@ class Plugin {
 	/**
 	 * construct grid plugin
 	 */
-	function __construct() {
+	function onCreate() {
 
 		/**
 		 * base paths
@@ -91,25 +95,18 @@ class Plugin {
 		$this->url = plugin_dir_url( __FILE__ );
 
 		// ------------------------------------
-		// autoloader
+		// translation
 		// ------------------------------------
-		require_once dirname(__FILE__). "/lib/grid/vendor/autoload.php";
-		require_once dirname( __FILE__ ) . "/vendor/autoload.php";
+		$this->textdomainConfig = new TextdomainConfig(
+			Plugin::DOMAIN,
+			"languages"
+		);
 
 		// ------------------------------------
 		// cache properties
 		// ------------------------------------
 		$this->grid_ids = array();
 		$this->post_ids = array();
-
-		/**
-		 * load translations
-		 */
-		load_plugin_textdomain(
-			Plugin::DOMAIN,
-			false,
-			dirname( plugin_basename( __FILE__ ) ) . '/languages'
-		);
 
 		global $grid_loaded;
 		$grid_loaded = false;
@@ -201,9 +198,8 @@ class Plugin {
 		add_action( 'pre_get_posts', 'grid_enable_front_page_landing_page' );
 
 		// ------------------------------------
-		// activate, deactivate and uninstall
+		// uninstall
 		// ------------------------------------
-		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
@@ -444,7 +440,7 @@ class Plugin {
 	/**
 	 * on plugin activation
 	 */
-	function activate(){
+	function onSiteActivation(){
 		$options = get_option( 'grid', array() );
 		if ( ! isset( $options['installed'] ) ) {
 			$schema = $this->gridCore->getDatabaseSchema();
@@ -640,19 +636,6 @@ class Plugin {
 		}
 
 		return 'en';
-	}
-
-	/**
-	 * @var null|Plugin $instance
-	 */
-	private static $instance;
-
-	/**
-	 * @return Plugin
-	 */
-	public static function instance(){
-		if(self::$instance == null) self::$instance = new Plugin();
-		return self::$instance;
 	}
 
 }
