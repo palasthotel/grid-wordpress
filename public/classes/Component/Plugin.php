@@ -1,21 +1,19 @@
 <?php
 
-namespace Palasthotel\WordPress;
+namespace Palasthotel\Grid\WordPress\Component;
 
-use Palasthotel\WordPress\Config\TextdomainConfig;
 use ReflectionException;
 
 /**
  * @property string path
  * @property string url
  * @property string basename
- * @since 0.0.1
+ * @since 0.1.1
  */
 abstract class Plugin {
 
 	/**
 	 * @var TextdomainConfig|null
-	 * @since 0.1.0
 	 */
 	var $textdomainConfig;
 
@@ -31,11 +29,11 @@ abstract class Plugin {
 		$this->onCreate();
 
 		if( $this->textdomainConfig instanceof TextdomainConfig){
-			add_action('init', function (){
+			add_action('init', function () use ($ref){
 				load_plugin_textdomain(
 					$this->textdomainConfig->domain,
 					false,
-					$this->textdomainConfig->languages
+					dirname( plugin_basename( $ref->getFileName() ) ) . "/" .$this->textdomainConfig->languages
 				);
 			});
 		}

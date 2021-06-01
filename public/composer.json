@@ -1,4 +1,6 @@
 {
+	"name": "palasthotel/grid-wordpress",
+	"description": "Grid plugin for wordpress",
 	"autoload": {
 		"classmap": [
           "classes"
@@ -6,14 +8,5 @@
 		"psr-4": {
 			"Palasthotel\\Grid\\WordPress\\": "classes"
 		}
-	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/palasthotel/wp-components.git"
-		}
-	],
-	"require": {
-		"palasthotel/wp-components": "0.1.0"
 	}
 }

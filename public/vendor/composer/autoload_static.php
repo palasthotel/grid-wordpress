@@ -4,21 +4,16 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInite7993a080e86641e9a8784918ebfb307
+class ComposerStaticInit1197f3f8d88e9855de0b198f14b42ee2
 {
     public static $prefixLengthsPsr4 = array (
         'P' => 
         array (
-            'Palasthotel\\WordPress\\' => 22,
             'Palasthotel\\Grid\\WordPress\\' => 27,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Palasthotel\\WordPress\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/palasthotel/wp-components/src',
-        ),
         'Palasthotel\\Grid\\WordPress\\' => 
         array (
             0 => __DIR__ . '/../..' . '/classes',
@@ -29,6 +24,9 @@ class ComposerStaticInite7993a080e86641e9a8784918ebfb307
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Palasthotel\\Grid\\WordPress\\Ajax' => __DIR__ . '/../..' . '/classes/Ajax.php',
         'Palasthotel\\Grid\\WordPress\\Boxes' => __DIR__ . '/../..' . '/classes/Boxes.php',
+        'Palasthotel\\Grid\\WordPress\\Component\\MultiSite' => __DIR__ . '/../..' . '/classes/Component/MultiSite.php',
+        'Palasthotel\\Grid\\WordPress\\Component\\Plugin' => __DIR__ . '/../..' . '/classes/Component/Plugin.php',
+        'Palasthotel\\Grid\\WordPress\\Component\\TextdomainConfig' => __DIR__ . '/../..' . '/classes/Component/TextdomainConfig.php',
         'Palasthotel\\Grid\\WordPress\\ContainerFactory' => __DIR__ . '/../..' . '/classes/ContainerFactory.php',
         'Palasthotel\\Grid\\WordPress\\Copy' => __DIR__ . '/../..' . '/classes/Copy.php',
         'Palasthotel\\Grid\\WordPress\\GridHook' => __DIR__ . '/../..' . '/classes/GridHook.php',
@@ -50,9 +48,9 @@ class ComposerStaticInite7993a080e86641e9a8784918ebfb307
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInite7993a080e86641e9a8784918ebfb307::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInite7993a080e86641e9a8784918ebfb307::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInite7993a080e86641e9a8784918ebfb307::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1197f3f8d88e9855de0b198f14b42ee2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1197f3f8d88e9855de0b198f14b42ee2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1197f3f8d88e9855de0b198f14b42ee2::$classMap;
 
         }, null, ClassLoader::class);
     }

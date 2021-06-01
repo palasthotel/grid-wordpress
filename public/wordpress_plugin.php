@@ -58,7 +58,7 @@ require_once dirname( __FILE__ ) . "/vendor/autoload.php";
  * @property Settings settings
  * @property Template gridTemplate
  */
-class Plugin extends \Palasthotel\WordPress\Plugin {
+class Plugin extends Component\Plugin {
 
 	// ------------------------------------
 	// constants
@@ -99,7 +99,6 @@ class Plugin extends \Palasthotel\WordPress\Plugin {
 		// ------------------------------------
 		$this->textdomainConfig = new TextdomainConfig(
 			Plugin::DOMAIN,
-			__FILE__,
 			"languages"
 		);
 
