@@ -44,7 +44,7 @@ if ( ! empty( $this->style ) ) {
 			grid_avoid_doublets_add( get_the_ID(), $this->grid->gridid );
 		}
 
-		$path = $this->template::getPath('post_content.tpl.php');
+		$path = $this->template->getPath('post_content.tpl.php');
 		include $path ? $path : dirname( __FILE__ ) . '/post_content.tpl.php';
 	}
 	wp_reset_postdata();

@@ -55,7 +55,7 @@ class grid_post_box extends grid_box {
 				}
 				
 				ob_start();
-				$path = $this->template::getPath('post_content.tpl.php');
+				$path = $this->template->getPath('post_content.tpl.php');
 				include $path ? $path : dirname( __FILE__ ) . '/../../templates/wordpress/post_content.tpl.php';
 				$output = ob_get_clean();
 

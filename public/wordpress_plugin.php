@@ -26,6 +26,7 @@ use Palasthotel\Grid\API;
 use Palasthotel\Grid\ContainerEditor;
 use Palasthotel\Grid\Core;
 use Palasthotel\Grid\Editor;
+use Palasthotel\Grid\iTemplate;
 use Palasthotel\Grid\Template;
 use Palasthotel\WordPress\Config\TextdomainConfig;
 use const Grid\Constants\GRID_CSS_VARIANT_NONE;
@@ -119,7 +120,7 @@ class Plugin extends Component\Plugin {
 		$this->gridHook = new GridHook();
 		// TODO: maybe move to later action for author name
 		$this->gridCore     = new Core($this->gridQuery, $this->gridHook, "");
-		$this->gridTemplate = new Template();
+		$this->gridTemplate = new Template([$this, 'loadGridPaths']);
 		$this->gridAjax     = new Ajax();
 		$this->gridAPI      = new API($this->gridCore, $this->gridAjax, $this->gridTemplate);
 		$this->gridEditor   = new Editor(
@@ -203,6 +204,18 @@ class Plugin extends Component\Plugin {
 		register_uninstall_hook( __FILE__, array( __CLASS__, 'uninstall' ) );
 	}
 
+	public function loadGridPaths(iTemplate $template){
+		$templatesPaths          = array();
+		$templatesPaths[]        = get_stylesheet_directory() . '/grid/';
+		$templatesPaths[]        = get_template_directory() . '/grid/';
+		$templatesPaths          = apply_filters( 'grid_templates_paths', $templatesPaths );
+		$templatesPaths[]        = dirname( __FILE__ ) . "/core/templates/wordpress";
+
+		foreach ($templatesPaths as $path){
+			$template->addPath($path);
+		}
+	}
+
 	/**
 	 * init grid to post types
 	 */
@@ -276,16 +289,6 @@ class Plugin extends Component\Plugin {
 
 		$user = wp_get_current_user();
 		$storage->author = $user->user_login;
-
-		$templatesPaths          = array();
-		$templatesPaths[]        = get_stylesheet_directory() . '/grid/';
-		$templatesPaths[]        = get_template_directory() . '/grid/';
-		$templatesPaths          = apply_filters( 'grid_templates_paths', $templatesPaths );
-		$templatesPaths[]        = dirname( __FILE__ ) . "/core/templates/wordpress";
-
-		foreach ($templatesPaths as $path){
-			$this->gridTemplate->addPath($path);
-		}
 	}
 
 	/**
