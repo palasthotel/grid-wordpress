@@ -86,6 +86,9 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 
 == Changelog ==
 
+= 2.2.3 =
+* Optimization: lazy load grid templates only if they are needed
+
 = 2.2.2 =
 * Dependency: Ckeditor 4.16.1
 
