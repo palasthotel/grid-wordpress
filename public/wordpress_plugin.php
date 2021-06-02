@@ -28,7 +28,6 @@ use Palasthotel\Grid\Core;
 use Palasthotel\Grid\Editor;
 use Palasthotel\Grid\iTemplate;
 use Palasthotel\Grid\Template;
-use Palasthotel\WordPress\Config\TextdomainConfig;
 use const Grid\Constants\GRID_CSS_VARIANT_NONE;
 use const Grid\Constants\GRID_CSS_VARIANT_TABLE;
 
@@ -98,7 +97,7 @@ class Plugin extends Component\Plugin {
 		// ------------------------------------
 		// translation
 		// ------------------------------------
-		$this->textdomainConfig = new TextdomainConfig(
+		$this->textdomainConfig = new Component\TextdomainConfig(
 			Plugin::DOMAIN,
 			"languages"
 		);
