@@ -131,7 +131,7 @@ class Post extends _Component
 		
 		$content = $this->get_the_content_wrapper($content);
 		
-		if ( isset( $post->grid ) ) {
+		if ( isset( $post->grid ) and !post_password_required( $post ) ) {
 
 			// get from hook
 			$position = apply_filters(PositionInPost::FILTER_OVERWRITE, null, $post);
