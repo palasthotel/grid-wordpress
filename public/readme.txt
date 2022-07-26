@@ -3,7 +3,7 @@ Contributors: edwardbock, mkernel, palasthotel
 Donate link: http://palasthotel.de/
 Tags: landingpage, editor, admin, page, containerist, grid
 Requires at least: 4.0
-Tested up to: 5.8.2
+Tested up to: 5.9.3
 Stable tag: 2.3.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl
@@ -90,6 +90,7 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 
 * Feature: Resue title for boxes
 * Feature: Open in new tab for epilog and prolog links
+* Bugfix: HTML parse problems in html box
 
 = 2.2.3 =
 * Optimization: lazy load grid templates only if they are needed
