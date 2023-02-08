@@ -12,6 +12,8 @@ Grid is a containerist landingpage editor.
 
 == Description ==
 
+This plugin is **no longer in active development**. Have a look at [BlockX](https://wordpress.org/plugin/blockx) for a similar editor and developer experience.
+
 What is Grid?
 
 * Grid allows Editors to easily create and maintain Landingpages
