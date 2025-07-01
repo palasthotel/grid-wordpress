@@ -21,6 +21,7 @@ class Boxes extends _Component
 		require( $dir . '/../core/classes/wordpress/grid_wp_shortcode_box.php' );
 		require( $dir . '/../core/classes/wordpress/grid_search_form_box.php' );
 		require( $dir . '/../core/classes/wordpress/grid_video_box.php' );
+        require( $dir . '/../core/classes/wordpress/grid_html_box.php' );
 
 		// box with all input types for debugging and checking if inputs are working as expected
 		if(WP_DEBUG) require( $dir . '/../core/classes/wordpress/grid_debug_box.php' );
