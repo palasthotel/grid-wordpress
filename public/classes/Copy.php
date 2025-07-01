@@ -3,12 +3,14 @@
 
 namespace Palasthotel\Grid\WordPress;
 
-
-/**
- * @property Plugin $plugin
- * @property \wpdb wpdb
- */
 class Copy extends _Component {
+
+    public Plugin $plugin;
+        
+    /**
+     * @var \wpdb
+     */
+    public mixed $wpdb;
 
 	const AJAX_ACTION_COPY = "copy_grid";
 	const AJAX_PARAM_POST_ID = "postid";

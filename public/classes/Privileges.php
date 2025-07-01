@@ -8,12 +8,10 @@
 
 namespace Palasthotel\Grid\WordPress;
 
-
-/**
- * @property Plugin plugin
- */
 class Privileges
 {
+
+    public Plugin $plugin;
 
 	/**
 	 * privileges constructor.

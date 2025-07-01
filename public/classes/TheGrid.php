@@ -13,10 +13,9 @@ use Grid\Constants\GridCSSVariant;
 use Palasthotel\Grid\Core;
 use const Grid\Constants\GRID_CSS_VARIANT_TABLE;
 
-/**
- * @property Plugin $plugin
- */
 class TheGrid extends _Component {
+
+    public Plugin $plugin;
 
 	function onCreate(){
 		add_action( 'admin_menu', array( $this, 'admin_menu') );
@@ -57,10 +56,10 @@ class TheGrid extends _Component {
 	}
 
 	function admin_menu(){
-		add_submenu_page( null, 'The Grid', 'The Grid', 'edit_posts', 'grid', array( $this, 'render_grid' ) );
-		add_submenu_page( null, 'Grid AJAX', 'The Grid AJAX', 'edit_posts', 'grid_ajax', array( $this, 'ajax' ) );
-		add_submenu_page( null, 'Grid CKEditor Config', 'Grid CKEditor Config', 'edit_posts', 'grid_ckeditor_config', array( $this, 'ckeditor_config' ) );
-		add_submenu_page( null, 'Grid Container slots CSS', 'Grid Conatiner slots CSS', 'edit_posts', 'grid_wp_container_slots_css', array( $this, 'container_slots_css' ) );
+		add_submenu_page( "", 'The Grid', 'The Grid', 'edit_posts', 'grid', array( $this, 'render_grid' ) );
+		add_submenu_page( "", 'Grid AJAX', 'The Grid AJAX', 'edit_posts', 'grid_ajax', array( $this, 'ajax' ) );
+		add_submenu_page( "", 'Grid CKEditor Config', 'Grid CKEditor Config', 'edit_posts', 'grid_ckeditor_config', array( $this, 'ckeditor_config' ) );
+		add_submenu_page( "", 'Grid Container slots CSS', 'Grid Conatiner slots CSS', 'edit_posts', 'grid_wp_container_slots_css', array( $this, 'container_slots_css' ) );
 	}
 
 	function render_grid() {

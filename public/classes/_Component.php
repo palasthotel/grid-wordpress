@@ -3,11 +3,10 @@
 
 namespace Palasthotel\Grid\WordPress;
 
-
-/**
- * @property Plugin plugin
- */
 class _Component {
+
+    public Plugin $plugin;
+
 	/**
 	 * _Component constructor.
 	 *

@@ -4,11 +4,13 @@
 namespace Palasthotel\Grid\WordPress;
 
 
-/**
- * @property Plugin plugin
- * @property \wpdb wpdb
- */
 class StorageHelper {
+
+    public Plugin $plugin;
+    /**
+     * @var \wpdb
+     */
+    public mixed $wpdb;
 
 	/**
 	 * Grid constructor.

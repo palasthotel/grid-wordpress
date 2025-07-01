@@ -38,27 +38,27 @@ if ( ! defined( 'WPINC' ) ) {
 require_once dirname(__FILE__). "/lib/grid/vendor/autoload.php";
 require_once dirname( __FILE__ ) . "/vendor/autoload.php";
 
-/**
- * @property string dir
- * @property string url
- * @property array grid_ids
- * @property array post_ids
- * @property StorageHelper storageHelper
- * @property TheGrid $theGrid
- * @property PositionInPost positionInPost
- * @property Post post
- * @property Ajax $gridAjax
- * @property API gridAPI
- * @property Editor gridEditor
- * @property Core gridCore
- * @property GridHook gridHook
- * @property GridQuery gridQuery
- * @property Boxes boxes
- * @property MetaBoxes metaBox
- * @property Settings settings
- * @property Template gridTemplate
- */
 class Plugin extends Component\Plugin {
+
+    public string $dir;
+    public string $url;
+    public array $grid_ids;
+    public array $post_ids;
+    public StorageHelper $storageHelper;
+    public TheGrid $theGrid;
+    public PositionInPost $positionInPost;
+    public Post $post;
+    public Ajax $gridAjax;
+    public API $gridAPI;
+    public Editor $gridEditor;
+    public Core $gridCore;
+    public GridHook $gridHook;
+    public GridQuery $gridQuery;
+    public Boxes $boxes;
+    public MetaBoxes $metaBox;
+    public Settings $settings;
+    public Template $gridTemplate;
+
 
 	// ------------------------------------
 	// constants
