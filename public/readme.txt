@@ -5,7 +5,7 @@ Tags: landingpage, editor, admin, page, containerist, grid
 Requires at least: 6.1
 Requires PHP: 8.2
 Tested up to: 7.1
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPL-3.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,6 +86,12 @@ Grid works fine with a varnish configuration and the comet cache plugin. If you 
 2. Grid editor with Box list
 
 == Changelog ==
+
+= 3.0.1 =
+**Bug Fixes**
+* **deps:** bump palasthotel/grid from 3.0.0 to 3.1.1 in /public (12888f8)
+* **deps:** bump palasthotel/grid from 3.0.0 to 3.1.1 in /public (fa029c8)
+* update the grid library to 3.1.1 (9cb7e93)
 
 = 3.0.0 =
 **⚠ BREAKING CHANGES**
