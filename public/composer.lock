@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "palasthotel/grid",
-            "version": "v3.0.0",
+            "version": "v3.1.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:palasthotel/grid.git",
-                "reference": "60acee619689e818f142f3fd18cc25ba10bb4ef0"
+                "url": "https://github.com/palasthotel/grid.git",
+                "reference": "b16ff8dc9ed86d47a10dc977859a364fc9aad4c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/palasthotel/grid/zipball/60acee619689e818f142f3fd18cc25ba10bb4ef0",
-                "reference": "60acee619689e818f142f3fd18cc25ba10bb4ef0",
+                "url": "https://api.github.com/repos/palasthotel/grid/zipball/b16ff8dc9ed86d47a10dc977859a364fc9aad4c5",
+                "reference": "b16ff8dc9ed86d47a10dc977859a364fc9aad4c5",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^11"
             },
-            "type": "library",
+            "type": "drupal-library",
             "autoload": {
                 "classmap": [
                     "classes"
@@ -45,8 +45,12 @@
             "license": [
                 "GPL-3.0-or-later"
             ],
-            "description": "Grid layout library - the base for grid-wordpress and grid-drupal",
-            "time": "2026-10-05T08:19:34+00:00"
+            "description": "Grid layout library - the base for wp-grid and drupal-grid",
+            "support": {
+                "source": "https://github.com/palasthotel/grid/tree/v3.1.1",
+                "issues": "https://github.com/palasthotel/grid/issues"
+            },
+            "time": "2026-10-12T15:57:33+00:00"
         },
         {
             "name": "simplepie/simplepie",
@@ -133,15 +137,15 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=8.2"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
