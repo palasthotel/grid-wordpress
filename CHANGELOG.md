@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.0.1](https://github.com/palasthotel/wp-grid/compare/v3.0.0...v3.0.1) (2026-10-12)
+
+
+### Bug Fixes
+
+* **deps:** bump palasthotel/grid from 3.0.0 to 3.1.1 in /public ([12888f8](https://github.com/palasthotel/wp-grid/commit/12888f80bf6f22e5ab9cd1b23050374dfb4486b6))
+* **deps:** bump palasthotel/grid from 3.0.0 to 3.1.1 in /public ([fa029c8](https://github.com/palasthotel/wp-grid/commit/fa029c84b343df9fbf4119fa27b48f116a5d5700))
+* update the grid library to 3.1.1 ([9cb7e93](https://github.com/palasthotel/wp-grid/commit/9cb7e93b7b75369d1f0dd109d02648f44aae6f6d))
+
 ## [3.0.0](https://github.com/palasthotel/wp-grid/compare/v2.3.2...v3.0.0) (2026-10-05)
 
 
