@@ -1,7 +1,7 @@
-=== Grid ===
+=== Grid Landing Page Editor ===
 Contributors: palasthotel, edwardbock, mkernel, janaeggebrecht
 Donate link: http://palasthotel.de/
-Tags: landingpage, editor, admin, page, containerist, grid
+Tags: landingpage, editor, page, containerist, grid
 Requires at least: 6.1
 Requires PHP: 8.2
 Tested up to: 7.1
