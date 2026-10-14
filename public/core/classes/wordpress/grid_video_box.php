@@ -88,8 +88,9 @@ class grid_video_box extends grid_static_base_box
 		if(isset($this->content->url) && !empty($this->content->url))
 		{
 			// OK, we have an url, we need to do our oembed vodoo.
-			$result=parse_url($this->content->url);
-			if(preg_match("/\w*?\.youtube\./um", $result['host']))
+			$result=wp_parse_url($this->content->url);
+			$host = ( is_array( $result ) && isset( $result['host'] ) ) ? $result['host'] : '';
+			if(preg_match("/\w*?\.youtube\./um", $host))
 			{
 				$url_show_info = "&showinfo=";
 				if($this->content->title){
@@ -103,26 +104,14 @@ class grid_video_box extends grid_static_base_box
 				} else {
 					$url_related.="0";
 				}
-				$scheme=$result['scheme'];
-				$url=$scheme."://www.youtube.com/oembed?url=".urlencode($this->content->url)."&format=json";
-				$request=curl_init($url);
-				curl_setopt($request,CURLOPT_RETURNTRANSFER,TRUE);
-				curl_setopt($request,CURLOPT_HEADER,FALSE);
-				$result=curl_exec($request);
-				if($result===FALSE)
-				{
-					var_dump(curl_error($request));
-					die();
-				}
-				curl_close($request);
-				$result=json_decode($result);
-				$html=$result->html;
-				$html=str_replace("src=\"http://", "src=\"".$scheme."://", $html);
+				$url="https://www.youtube.com/oembed?url=".urlencode($this->content->url)."&format=json";
+				$html=$this->fetch_oembed_html($url);
+				$html=str_replace("src=\"http://", "src=\"https://", $html);
 				// Prevents flash bug in Firefox (no playback on click)
 				$html=str_replace('feature=oembed', 'feature=oembed&wmode=transparent&html5=1'.$url_related.$url_show_info, $html);
 				$this->content->html=$html;
 			}
-			else if(preg_match("/youtu\.be/um", $result['host']) ) {
+			else if(preg_match("/youtu\.be/um", $host) ) {
 				$url_show_info = "&showinfo=";
 				if($this->content->title){
 					$url_show_info.="1";
@@ -142,21 +131,14 @@ class grid_video_box extends grid_static_base_box
 				}
 				
 				$parts = explode("/", $url);
-				$scheme=$result['scheme'];
-				$url=$result['scheme']."://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=".urlencode(end($parts))."&format=json";
-				$request=curl_init($url);
-				curl_setopt($request,CURLOPT_RETURNTRANSFER,TRUE);
-				curl_setopt($request,CURLOPT_HEADER,FALSE);
-				$result=curl_exec($request);
-				curl_close($request);
-				$result=json_decode($result);
-				$html=$result->html;
-				$html=str_replace("src=\"http://", "src=\"".$scheme."://", $html);
+				$url="https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=".urlencode(end($parts))."&format=json";
+				$html=$this->fetch_oembed_html($url);
+				$html=str_replace("src=\"http://", "src=\"https://", $html);
 				// Prevents flash bug in Firefox (no playback on click)
 				$html=str_replace('feature=oembed', 'feature=oembed&wmode=transparent&html5=1'.$url_related.$url_show_info, $html);
 				$this->content->html=$html;
 			}
-			else if(preg_match("/(\w*?\.)?vimeo\./um", $result['host']))
+			else if(preg_match("/(\w*?\.)?vimeo\./um", $host))
 			{
 				$url_need_title = "&title=";
 				$url_need_byline = "&byline=";
@@ -171,17 +153,27 @@ class grid_video_box extends grid_static_base_box
 					$url_need_portrait.="false";
 				}
 
-				$url=$result['scheme']."://vimeo.com/api/oembed.json?url=".urlencode($this->content->url).$url_need_title.$url_need_byline.$url_need_portrait;
-				$request=curl_init($url);
-				curl_setopt($request,CURLOPT_RETURNTRANSFER,TRUE);
-				curl_setopt($request, CURLOPT_HEADER, FALSE);
-				$result=curl_exec($request);
-				curl_close($request);
-				$result=json_decode($result);
-				$this->content->html=$result->html;
+				$url="https://vimeo.com/api/oembed.json?url=".urlencode($this->content->url).$url_need_title.$url_need_byline.$url_need_portrait;
+				$this->content->html=$this->fetch_oembed_html($url);
 			}
-			else $this->content->html=$result['host'];
+			else $this->content->html=$host;
 		}
 		return parent::persist();
+	}
+
+	/**
+	 * Asks the video platform's oEmbed endpoint for the embed code.
+	 *
+	 * @param string $url oEmbed request url
+	 *
+	 * @return string the embed html, empty if the request failed
+	 */
+	private function fetch_oembed_html( $url ) {
+		$response = wp_safe_remote_get( $url );
+		if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+			return '';
+		}
+		$data = json_decode( wp_remote_retrieve_body( $response ) );
+		return ( is_object( $data ) && isset( $data->html ) && is_string( $data->html ) ) ? $data->html : '';
 	}
 }
