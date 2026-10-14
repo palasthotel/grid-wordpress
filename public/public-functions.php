@@ -143,25 +143,25 @@ function grid_wp_mark_reuse_delete_links( $html, $page, $param, $titles ) {
  */
 function grid_wp_print_reuse_delete_dialog( $page, $param, $message, $message_with_title ) {
 	$config = wp_json_encode( array( 'page' => $page, 'param' => $param, 'message' => $message, 'messageWithTitle' => $message_with_title ) );
-	wp_print_inline_script_tag( <<<JS
-(function (config) {
-	document.addEventListener('click', function (event) {
-		var link = event.target.closest('a[href*="page=' + config.page + '&"], a[href*="page=' + config.page + '&amp;"]');
+	wp_print_inline_script_tag(
+		'(function (config) {
+	document.addEventListener(\'click\', function (event) {
+		var link = event.target.closest(\'a[href*="page=\' + config.page + \'&"], a[href*="page=\' + config.page + \'&amp;"]\');
 		if (!link) {
 			return;
 		}
 		event.preventDefault();
-		var title = link.getAttribute('data-grid-title');
-		if (!window.confirm(title ? config.messageWithTitle.replace('%s', title) : config.message)) {
+		var title = link.getAttribute(\'data-grid-title\');
+		if (!window.confirm(title ? config.messageWithTitle.replace(\'%s\', title) : config.message)) {
 			return;
 		}
 		var url = new URL(link.href);
-		var form = document.createElement('form');
-		form.method = 'post';
+		var form = document.createElement(\'form\');
+		form.method = \'post\';
 		form.action = link.href;
-		[['grid_delete_id', url.searchParams.get(config.param)], ['_wpnonce', url.searchParams.get('_wpnonce')]].forEach(function (field) {
-			var input = document.createElement('input');
-			input.type = 'hidden';
+		[[\'grid_delete_id\', url.searchParams.get(config.param)], [\'_wpnonce\', url.searchParams.get(\'_wpnonce\')]].forEach(function (field) {
+			var input = document.createElement(\'input\');
+			input.type = \'hidden\';
 			input.name = field[0];
 			input.value = field[1];
 			form.appendChild(input);
@@ -169,8 +169,7 @@ function grid_wp_print_reuse_delete_dialog( $page, $param, $message, $message_wi
 		document.body.appendChild(form);
 		form.submit();
 	});
-})($config);
-JS
+})(' . $config . ');'
 	);
 }
 

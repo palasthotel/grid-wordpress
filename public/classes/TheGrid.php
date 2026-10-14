@@ -288,7 +288,7 @@ class TheGrid extends _Component {
 		$post_id = grid_wp_get_postid_by_grid($grid_id);
 		$post = array(
 			'ID' => $post_id,
-			'post_modified_gmt' => date( 'Y:m:d H:i:s' ),
+			'post_modified_gmt' => gmdate( 'Y-m-d H:i:s' ),
 		);
 		wp_update_post( $post );
 	}
