@@ -89,7 +89,7 @@ class TheGrid extends _Component {
 		 */
 		if( 0=== $postid ){
 			?>
-			<p><?php _e('Ups! I cannot find a Grid without an Post ID.', 'grid'); ?></p>
+			<p><?php esc_html_e('Ups! I cannot find a Grid without an Post ID.', 'grid'); ?></p>
 			<?php
 			return;
 		}
@@ -123,11 +123,11 @@ class TheGrid extends _Component {
 			$post_state = ' <span class="post-state">&mdash; ' . esc_html( $status->label ) . '</span>';
 		}
 
-		echo '<div class="wrap"><h2>'.esc_html( $post->post_title ).$post_state.
+		echo '<div class="wrap"><h2>'.esc_html( $post->post_title ).wp_kses_post( $post_state ).
 			' <a title="Return to the post-edit page" class="add-new-h2"'.
-			' href="'.esc_url( admin_url( "post.php?post=$postid&action=edit" ) ).'" >'.__('Edit Post', 'grid').'</a'.
+			' href="'.esc_url( admin_url( "post.php?post=$postid&action=edit" ) ).'" >'.esc_html__('Edit Post', 'grid').'</a'.
 			'><a class="add-new-h2" href="'.
-			esc_url( get_permalink( $postid ) ).'">'.__('View Grid', 'grid').'</a></h2> </div>';
+			esc_url( get_permalink( $postid ) ).'">'.esc_html__('View Grid', 'grid').'</a></h2> </div>';
 
 		/**
 		 * async parameters
@@ -172,6 +172,7 @@ class TheGrid extends _Component {
 
 		grid_wp_load_js();
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the grid library's editor markup (forms, scripts); wp_kses would break it.
 		echo $html;
 	}
 
@@ -184,6 +185,7 @@ class TheGrid extends _Component {
 		$formats = apply_filters( 'grid_formats', $formats );
 		$ckeditor_plugins = apply_filters('grid_ckeditor_plugins', $ckeditor_plugins);
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JavaScript config file, not HTML.
 		echo $this->plugin->gridEditor->getCKEditorConfig($styles, $formats, $ckeditor_plugins);
 		die();
 	}
@@ -195,6 +197,7 @@ class TheGrid extends _Component {
 
 
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS file built from the container types, not HTML.
 		echo $this->plugin->gridEditor->getContainerSlotCSS(
 			$wpdb->get_results('select * from '.$wpdb->prefix.'grid_container_type'),
 			GridCSSVariant::getVariant($variant)

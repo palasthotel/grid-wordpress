@@ -29,6 +29,7 @@ class Styles extends _Component
 	function styles() {
 		$editor = $this->plugin->gridEditor->getStyleEditor();
 		$html = $editor->run();
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin screen markup from the grid library's editor (forms, scripts); wp_kses would break it.
 		echo $html;
 	}
 

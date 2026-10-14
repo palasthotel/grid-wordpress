@@ -34,6 +34,7 @@ class ReuseContainer extends _Component
 			$titles[ $id ] = $this->reuse_title( $id );
 			return grid_wp_reuse_delete_url( 'grid_delete_reuse_container', 'containerid', $id );
 		} );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin screen markup from the grid library's editor (forms, scripts); wp_kses would break it.
 		echo grid_wp_mark_reuse_delete_links( $html, 'grid_delete_reuse_container', 'containerid', $titles );
 		grid_wp_print_reuse_delete_dialog(
 			'grid_delete_reuse_container',
@@ -56,6 +57,7 @@ class ReuseContainer extends _Component
 			get_option( 'grid_debug_mode', false ),
 			''
 		);
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin screen markup from the grid library's editor (forms, scripts); wp_kses would break it.
 		echo $html;
 	}
 

@@ -68,7 +68,7 @@ class Settings extends _Component
 	function render_settings_form() {
 		?>
 		<div class="wrap">
-			<h2><?php _e('Grid Settings', 'grid'); ?></h2>
+			<h2><?php esc_html_e('Grid Settings', 'grid'); ?></h2>
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( 'grid_settings' );
@@ -219,7 +219,7 @@ class Settings extends _Component
 	}
 
 	function frontend_css_settings_section(){
-		_e('Choose the css variant for frontend grid rendering.', 'grid');
+		esc_html_e('Choose the css variant for frontend grid rendering.', 'grid');
 	}
 
 	function frontend_css_html(){
@@ -239,18 +239,17 @@ class Settings extends _Component
 				"label" => _x( "Flexbox", "Frontend css variant settings", 'grid' ),
 			],
 		];
-		echo "<select name='".Plugin::OPTION_FRONTEND_CSS_VARIANT."'>";
+		echo "<select name='".esc_attr( Plugin::OPTION_FRONTEND_CSS_VARIANT )."'>";
 		foreach ($variants as $variant){
 			$key = $variant["key"];
 			$label = $variant["label"];
-			$selected = ($frontendCssVariant == $key)? "selected='selected'":"";
-			echo "<option value='$key' $selected>$label</option>";
+			echo "<option value='".esc_attr( $key )."' ".selected( $frontendCssVariant, $key, false ).">".esc_html( $label )."</option>";
 		}
 		echo "</select>";
 	}
 
 	function default_styles_settings_section() {
-		_e('Set which default styles should be applied.','grid');
+		esc_html_e('Set which default styles should be applied.','grid');
 	}
 
 	function default_container_style_html() {
@@ -259,11 +258,11 @@ class Settings extends _Component
 		$setting = get_option( 'grid_default_container_style', '__NONE__' );
 		?>
 		<select id="grid_default_container_style" name="grid_default_container_style">
-			<option value="__NONE__" <?php echo ( $setting == '__NONE__' ? 'selected' : '' ) ?>><?php _ex('None', 'grid_styles', 'grid'); ?></option>
+			<option value="__NONE__" <?php echo ( $setting == '__NONE__' ? 'selected' : '' ) ?>><?php echo esc_html_x('None', 'grid_styles', 'grid'); ?></option>
 			<?php
 			foreach ( $types as $idx => $elem ) {
 				?>
-				<option value="<?php echo $elem['slug'];?>" <?php echo ( $elem['slug'] == $setting ? 'selected' : '' );?>><?php echo $elem['title'];?></option>
+				<option value="<?php echo esc_attr( $elem['slug'] );?>" <?php echo ( $elem['slug'] == $setting ? 'selected' : '' );?>><?php echo esc_html( $elem['title'] );?></option>
 				<?php
 			}
 			?>
@@ -277,11 +276,11 @@ class Settings extends _Component
 		$setting = get_option( 'grid_default_slot_style', '__NONE__' );
 		?>
 		<select id="grid_default_slot_style" name="grid_default_slot_style">
-			<option value="__NONE__" <?php echo ( $setting == '__NONE__' ? 'selected' : '' );?>><?php _ex('None', 'grid_styles', 'grid'); ?></option>
+			<option value="__NONE__" <?php echo ( $setting == '__NONE__' ? 'selected' : '' );?>><?php echo esc_html_x('None', 'grid_styles', 'grid'); ?></option>
 			<?php
 			foreach ( $types as $idx => $elem ) {
 				?>
-				<option value="<?php echo $elem['slug'];?>" <?php echo ( $elem['slug'] == $setting ? 'selected' : '' );?>><?php echo $elem['title'];?></option>
+				<option value="<?php echo esc_attr( $elem['slug'] );?>" <?php echo ( $elem['slug'] == $setting ? 'selected' : '' );?>><?php echo esc_html( $elem['title'] );?></option>
 				<?php
 			}
 			?>
@@ -295,11 +294,11 @@ class Settings extends _Component
 		$setting = get_option( 'grid_default_box_style', '__NONE__' );
 		?>
 		<select id="grid_default_box_style" name="grid_default_box_style">
-			<option value="__NONE__" <?php echo ( $setting == '__NONE__' ? 'selected' : '');?>><?php _ex('None', 'grid_styles', 'grid'); ?></option>
+			<option value="__NONE__" <?php echo ( $setting == '__NONE__' ? 'selected' : '');?>><?php echo esc_html_x('None', 'grid_styles', 'grid'); ?></option>
 			<?php
 			foreach ( $types as $idx => $elem ) {
 				?>
-				<option value="<?php echo $elem['slug'];?>" <?php echo ( $elem['slug'] == $setting ? 'selected' : '' );?>><?php echo $elem['title'];?></option>
+				<option value="<?php echo esc_attr( $elem['slug'] );?>" <?php echo ( $elem['slug'] == $setting ? 'selected' : '' );?>><?php echo esc_html( $elem['title'] );?></option>
 				<?php
 			}
 			?>
@@ -311,24 +310,24 @@ class Settings extends _Component
 		$posttype = $args['type'];
 		$value = get_option( 'grid_'.$posttype.'_enabled', false );
 		?>
-		<input type="checkbox" id="grid_<?php echo $posttype?>_enabled" name="grid_<?php echo $posttype?>_enabled" <?php echo ( $value ? 'checked' : '' )?>> <?php echo ($value ? "Enabled": "Disabled") ?>
+		<input type="checkbox" id="grid_<?php echo esc_attr( $posttype )?>_enabled" name="grid_<?php echo esc_attr( $posttype )?>_enabled" <?php echo ( $value ? 'checked' : '' )?>> <?php echo ($value ? "Enabled": "Disabled") ?>
 		<?php
 	}
 
 	function post_type_settings_section() {
-		echo __('Which post types should have grid support?', 'grid');
+		esc_html_e('Which post types should have grid support?', 'grid');
 	}
 
 	function post_type_search_html( $args ) {
 		$posttype = $args['type'];
 		$value = get_option( 'grid_'.$posttype.'_search_enabled', false );
 		?>
-		<input type="checkbox" id="grid_<?php echo $posttype?>_search_enabled" name="grid_<?php echo $posttype?>_search_enabled" <?php echo ( $value ? 'checked' : '' )?>> <?php echo ($value ? "Enabled": "Disabled") ?>
+		<input type="checkbox" id="grid_<?php echo esc_attr( $posttype )?>_search_enabled" name="grid_<?php echo esc_attr( $posttype )?>_search_enabled" <?php echo ( $value ? 'checked' : '' )?>> <?php echo ($value ? "Enabled": "Disabled") ?>
 		<?php
 	}
 
 	function post_type_search_settings_section() {
-		_e('Which post types should be found in grid content search?', 'grid');
+		esc_html_e('Which post types should be found in grid content search?', 'grid');
 	}
 
 	function default_container_section() {
@@ -340,13 +339,13 @@ class Settings extends _Component
 		$containers = $storage->fetchContainerTypes();
 		?>
 		<select id="grid_default_container" name="grid_default_container">
-			<option value="__NONE__"><?php _ex('Empty', 'default_container', 'grid'); ?></option>
+			<option value="__NONE__"><?php echo esc_html_x('Empty', 'default_container', 'grid'); ?></option>
 			<?php
 			foreach ( $containers as $container ) {
 				$type = $container['type'];
 				if ( 0 === strpos( $type, 'c-' ) ) {
 					?>
-					<option value="<?php echo $type?>" <?php echo ( get_option( 'grid_default_container' ) == $type ? 'selected' : '');?> ><?php echo $type?></option>
+					<option value="<?php echo esc_attr( $type )?>" <?php echo ( get_option( 'grid_default_container' ) == $type ? 'selected' : '');?> ><?php echo esc_html( $type )?></option>
 					<?php
 				}
 			}
@@ -383,14 +382,14 @@ class Settings extends _Component
 
 		$value = get_option( 'grid_async_url', '' );
 		?>
-		<input type="text" id="grid_async_url" name="grid_async_url" value="<?php echo $value; ?>" />
+		<input type="text" id="grid_async_url" name="grid_async_url" value="<?php echo esc_attr( $value ); ?>" />
 		<?php
 	}
 
   	function async_timeout_html() {
 	  $value = get_option( 'grid_async_timeout', 5*60 );
 	  ?>
-	  <input type="number" id="grid_async_timeout" name="grid_async_timeout" value="<?php echo $value; ?>" />
+	  <input type="number" id="grid_async_timeout" name="grid_async_timeout" value="<?php echo esc_attr( $value ); ?>" />
 	  <?php
   	}
 
@@ -401,7 +400,7 @@ class Settings extends _Component
 	function mediaselect_info_html() {
 		$value = get_option( 'grid_mediaselect_info', '' );
 		?>
-		<textarea id="grid_mediaselect_info" name="grid_mediaselect_info" rows="4" cols="50"><?php echo $value ?></textarea>
+		<textarea id="grid_mediaselect_info" name="grid_mediaselect_info" rows="4" cols="50"><?php echo esc_textarea( $value ) ?></textarea>
 		<?php
 	}
 
@@ -427,7 +426,7 @@ class Settings extends _Component
 	function permalinks_html() {
 		$value = get_option( 'grid_permalinks', '' );
 		?>
-		<input type="text" id="grid_permalinks" name="grid_permalinks" value="<?php echo $value ?>" />
+		<input type="text" id="grid_permalinks" name="grid_permalinks" value="<?php echo esc_attr( $value ) ?>" />
 		<?php
 	}
 

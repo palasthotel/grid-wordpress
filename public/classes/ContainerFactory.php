@@ -21,6 +21,7 @@ class ContainerFactory extends _Component
 		$editor = $this->plugin->gridEditor->getContainerEditor();
 		grid_enqueue_editor_files($editor);
 		$html = $editor->run( $this->plugin->gridCore->storage );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- admin screen markup from the grid library's editor (forms, scripts); wp_kses would break it.
 		echo $html;
 	}
 }

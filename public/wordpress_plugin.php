@@ -213,7 +213,7 @@ class Plugin extends Component\Plugin {
 	}
 
 	public function styles_nonce() {
-		echo wp_nonce_field();
+		wp_nonce_field();
 	}
 
 	public function loadGridPaths(iTemplate $template){
@@ -514,7 +514,7 @@ class Plugin extends Component\Plugin {
 							$query .= ' COLLATE '.$data['collate'];
 						}
 					} else {
-						die( 'unknown type '.$fielddata['type'] );
+						die( 'unknown type '.esc_html( $fielddata['type'] ) );
 					}
 					if ( isset( $fielddata['unsigned'] ) && $fielddata['unsigned'] ) {
 						$query .= ' unsigned';

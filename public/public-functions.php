@@ -202,6 +202,7 @@ function grid_wp_render_reuse_delete_page( $html, $title, $page, $id, $list_url,
 	} else {
 		echo '<p>' . esc_html__( 'This deletes it for good.', 'grid' ) . '</p>';
 	}
+	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the grid library's confirmation form, extended above; wp_kses would strip the form.
 	echo $html;
 	echo '</div>';
 }
