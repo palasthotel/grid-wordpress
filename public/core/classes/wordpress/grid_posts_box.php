@@ -390,7 +390,8 @@ class grid_posts_box extends grid_list_box {
 		if ( ! taxonomy_exists( $taxonomy ) ) {
 			return array( array( 'key' => - 1, 'value' => 'invalid key:' . $path ) );
 		}
-		$categories = get_terms( $taxonomy, array(
+		$categories = get_terms( array(
+			'taxonomy'   => $taxonomy,
 			'hide_empty' => false,
 		) );
 		$results    = array();

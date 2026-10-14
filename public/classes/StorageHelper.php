@@ -30,9 +30,10 @@ class StorageHelper {
 	 * @return bool|int
 	 */
 	public function setPostGrid($postid, $gridid){
-		return $this->wpdb->query(
-			$this->wpdb->prepare(
-				'insert into '.$this->wpdb->prefix.'grid_nodes (nid,grid_id) values (%d,%d)',
+		$wpdb = $this->wpdb;
+		return $wpdb->query(
+			$wpdb->prepare(
+				"insert into {$wpdb->prefix}grid_nodes (nid,grid_id) values (%d,%d)",
 				intval( $postid ),
 				intval( $gridid )
 			)
