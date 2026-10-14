@@ -197,11 +197,12 @@ class TheGrid extends _Component {
 
 
 
-		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS file built from the container types, not HTML.
-		echo $this->plugin->gridEditor->getContainerSlotCSS(
+		$css = $this->plugin->gridEditor->getContainerSlotCSS(
 			$wpdb->get_results('select * from '.$wpdb->prefix.'grid_container_type'),
 			GridCSSVariant::getVariant($variant)
 		);
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- CSS file built from the container types, not HTML.
+		echo $css;
 
 		die();
 	}
