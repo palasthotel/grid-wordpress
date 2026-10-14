@@ -50,7 +50,7 @@ class grid_html_box extends grid_static_base_box {
 		return array_merge($cs, array(
 			array(
 				'key'=>'html',
-				'label'=>t('Text'),
+				'label'=>__( 'Text', 'grid' ),
 				'type'=>'html'
 			),
 		));

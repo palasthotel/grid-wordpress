@@ -58,7 +58,7 @@ class grid_video_box extends grid_static_base_box
 		return array(
 			array(
 				'key'=>'url',
-				'label'=>t('Video-URL'),
+				'label'=>__( 'Video-URL', 'grid' ),
 				'type'=>'text',
 			),
 			array(
@@ -68,7 +68,7 @@ class grid_video_box extends grid_static_base_box
 			),
 			array(
 				'key'=>'related',
-				'label'=>t('Display related videos at the end (YouTube)'),
+				'label'=>__( 'Display related videos at the end (YouTube)', 'grid' ),
 				'type'=>'checkbox',
 			),
 			array(
