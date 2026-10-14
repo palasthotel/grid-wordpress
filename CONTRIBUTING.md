@@ -52,7 +52,7 @@ alone.
 
 ## Checks
 
-Every pull request builds the plugin, runs `php -l` against PHP 8.2, 8.3 and 8.4, packs
+Every pull request builds the plugin, runs `php -l` against PHP 8.2 to 8.5, packs
 the payload and checks it - including that the grid editor bundle was built - and checks
 that the version carriers agree.
 

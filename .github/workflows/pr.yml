@@ -18,7 +18,7 @@ jobs:
       slug: grid
       main-file: wordpress_plugin.php
       dev-plugin-name: Grid - DEV
-      php-versions: '["8.2", "8.3", "8.4"]'
+      php-versions: '["8.2", "8.3", "8.4", "8.5"]'
       php-version: "8.2"
       # composer brings the grid library, which the plugin builds itself
       build-command: npm run build
