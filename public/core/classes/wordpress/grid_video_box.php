@@ -63,7 +63,7 @@ class grid_video_box extends grid_static_base_box
 			),
 			array(
 				'key'=>'title',
-				'label' => t('Display title'),
+				'label' => __( 'Display title', 'grid' ),
 				'type'=>'checkbox',
 			),
 			array(

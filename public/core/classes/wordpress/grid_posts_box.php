@@ -201,7 +201,7 @@ class grid_posts_box extends grid_list_box {
 			$cs[] = array(
 				'key'        => 'viewmode',
 				'type'       => 'select',
-				'label'      => t( 'Viewmode' ),
+				'label'      => __( 'Viewmode', 'grid' ),
 				'selections' => $viewmodes,
 			);
 		}
@@ -211,7 +211,7 @@ class grid_posts_box extends grid_list_box {
 		 */
 		$cs[] = array(
 			'key'   => 'posts_per_page',
-			'label' => t( 'Posts per page' ),
+			'label' => __( 'Posts per page', 'grid' ),
 			'type'  => 'number',
 		);
 
@@ -220,7 +220,7 @@ class grid_posts_box extends grid_list_box {
 		 */
 		$cs[] = array(
 			'key'   => 'offset',
-			'label' => t( 'Offset' ),
+			'label' => __( 'Offset', 'grid' ),
 			'type'  => 'number',
 		);
 
@@ -257,7 +257,7 @@ class grid_posts_box extends grid_list_box {
 			$formats   = array();
 			$formats[] = array(
 				'key'  => '',
-				'text' => __( 'All post formats', Plugin::DOMAIN ),
+				'text' => __( 'All post formats', 'grid' ),
 			);
 
 			$post_formats = get_theme_support( 'post-formats' );
@@ -271,7 +271,7 @@ class grid_posts_box extends grid_list_box {
 
 			$cs[] = array(
 				'key'        => 'post_format',
-				'label'      => __( 'Post format', Plugin::DOMAIN ),
+				'label'      => __( 'Post format', 'grid' ),
 				'type'       => 'select',
 				'selections' => $formats,
 			);
@@ -299,10 +299,10 @@ class grid_posts_box extends grid_list_box {
 		foreach ( $input as $post_type => $info ) {
 			$post_types[] = array( 'key' => $post_type, 'text' => $info->labels->name );
 		}
-		$post_types[] = array( 'key' => 'any', 'text' => __( 'Any post type', Plugin::DOMAIN ) );
+		$post_types[] = array( 'key' => 'any', 'text' => __( 'Any post type', 'grid' ) );
 		$cs[]         = array(
 			'key'        => 'post_type',
-			'label'      => t( 'Post type' ),
+			'label'      => __( 'Post type', 'grid' ),
 			'type'       => 'select',
 			'selections' => $post_types,
 			'multiple'   => true,
@@ -313,13 +313,13 @@ class grid_posts_box extends grid_list_box {
 		 */
 		$cs[] = array(
 			'key'       => 'before',
-			'label'     => t( 'Show only posts before' ),
+			'label'     => __( 'Show only posts before', 'grid' ),
 			'type'      => 'input',
 			'inputType' => 'date',
 		);
 		$cs[] = array(
 			'key'       => 'after',
-			'label'     => t( 'Show only posts after' ),
+			'label'     => __( 'Show only posts after', 'grid' ),
 			'type'      => 'input',
 			'inputType' => 'date',
 		);
@@ -346,8 +346,8 @@ class grid_posts_box extends grid_list_box {
 	 */
 	public function getViewmodes() {
 		$viewmodes = array(
-			array( 'key' => 'excerpt', 'text' => t( 'Excerpt' ) ),
-			array( 'key' => 'full', 'text' => t( 'Full' ) ),
+			array( 'key' => 'excerpt', 'text' => __( 'Excerpt', 'grid' ) ),
+			array( 'key' => 'full', 'text' => __( 'Full', 'grid' ) ),
 		);
 		$viewmodes = apply_filters( 'grid_post_viewmodes', $viewmodes );
 
@@ -419,7 +419,7 @@ class grid_posts_box extends grid_list_box {
 	public function getElementValue( $path, $id ) {
 		$taxonomy = $this->getTaxonomyNameByKey( $path );
 		if ( ! taxonomy_exists( $taxonomy ) || $id == null || $id == '' ) {
-			return t( 'Taxonomy does not exist' ) . ': ' . $taxonomy;
+			return __( 'Taxonomy does not exist', 'grid' ) . ': ' . $taxonomy;
 		} else {
 			$term = get_term( $id, $taxonomy );
 

@@ -24,7 +24,7 @@ class MetaBoxes extends _Component
 		$post_types = get_post_types( array(), 'objects' );
 		foreach ( $post_types as $key => $post_type ) {
 			if ( get_option( 'grid_'.$key.'_enabled', false ) ) {
-				add_meta_box( 'grid', __( 'Grid', Plugin::DOMAIN ), array( $this, 'render_meta_box' ) , $key, 'side', 'high' );
+				add_meta_box( 'grid', __( 'Grid', 'grid' ), array( $this, 'render_meta_box' ) , $key, 'side', 'high' );
 			}
 		}
 	}
@@ -72,10 +72,10 @@ class MetaBoxes extends _Component
 							id="grid-position"
 							name="grid[<?php echo PositionInPost::META_KEY ?>]"
 					>
-						<?php $this->render_position_option(__('Append to content', Plugin::DOMAIN), PositionInPost::POSITION_BOTTOM, $val); ?>
-						<?php $this->render_position_option(__('Prepend to content', Plugin::DOMAIN), PositionInPost::POSITION_TOP, $val); ?>
-						<?php $this->render_position_option(__('Grid only, no content', Plugin::DOMAIN), PositionInPost::POSITION_ONLY, $val); ?>
-						<?php $this->render_position_option(__('Disable grid rendering', Plugin::DOMAIN), PositionInPost::POSITION_NONE, $val); ?>
+						<?php $this->render_position_option(__('Append to content', 'grid'), PositionInPost::POSITION_BOTTOM, $val); ?>
+						<?php $this->render_position_option(__('Prepend to content', 'grid'), PositionInPost::POSITION_TOP, $val); ?>
+						<?php $this->render_position_option(__('Grid only, no content', 'grid'), PositionInPost::POSITION_ONLY, $val); ?>
+						<?php $this->render_position_option(__('Disable grid rendering', 'grid'), PositionInPost::POSITION_NONE, $val); ?>
 					</select>
 				</p>
 				<?php

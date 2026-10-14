@@ -17,7 +17,7 @@ use Palasthotel\Grid\WordPress\Plugin;
 	<?php
 	if ( null !== $this->grid ) {
 		if ( empty( $content->slug ) ) {
-			echo '<br>' . __( "You need to set a valid shortcode! {$content->slug}", Plugin::DOMAIN );
+			echo '<br>' . esc_html__( 'You need to set a valid shortcode!', 'grid' );
 		} else {
 			echo "<br>[{$content->slug} {$content->attributes}]";
 		}

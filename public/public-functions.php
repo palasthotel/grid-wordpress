@@ -33,11 +33,12 @@ function grid_wp_add_hidden_page( $page_title, $menu_title, $capability, $menu_s
 /**
  * drupal t function
  *
+ * Kept for themes and extensions that still call it. The plugin itself uses __().
  */
-// TODO: use grid translate function
 if ( ! function_exists( 't' ) ) {
 	function t( $str ) {
-		return __( $str, Plugin::DOMAIN );
+		// phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText -- backwards-compatible wrapper for callers outside the plugin; their strings are not ours to extract.
+		return __( $str, 'grid' );
 	}
 }
 

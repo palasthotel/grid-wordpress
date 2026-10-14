@@ -90,7 +90,7 @@ class grid_media_box extends grid_static_base_box {
 		$cs[] = array(
 			'key' => 'fileid',
 			'type' => 'wp-mediaselect',
-			'label' => t( 'Image' ),
+			'label' => __( 'Image', 'grid' ),
 			'media_type' => get_option( 'grid_mediaselect_types', 'image' ),
 		);
 		if ( $value != '' ) {
@@ -103,7 +103,7 @@ class grid_media_box extends grid_static_base_box {
 		$cs[] = array(
 			'key' => 'url',
 			'type' => 'text',
-			'label' => t( 'Hyperlink-URL (optional)' ),
+			'label' => __( 'Hyperlink-URL (optional)', 'grid' ),
 		);
 		return $cs;
 	}

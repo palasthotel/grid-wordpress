@@ -48,7 +48,7 @@ class TheGrid extends _Component {
 		if ( true == get_option( 'grid_'.get_post_type().'_enabled', false ) ) {
 			$temp = array();
 			$editGridUrl = $this->getEditorUrl($entity->ID);
-			$label = ($this->plugin->post->post_has_grid($entity->ID)) ? __("Edit Grid", Plugin::DOMAIN): __("Create Grid", Plugin::DOMAIN);
+			$label = ($this->plugin->post->post_has_grid($entity->ID)) ? __("Edit Grid", 'grid'): __("Create Grid", 'grid');
 			$temp['grid'] = sprintf('<a href="%s">%s</a>', $editGridUrl, $label);
 			$actions = array_merge( $temp, $actions );
 		}
@@ -125,9 +125,9 @@ class TheGrid extends _Component {
 
 		echo '<div class="wrap"><h2>'.esc_html( $post->post_title ).$post_state.
 			' <a title="Return to the post-edit page" class="add-new-h2"'.
-			' href="'.esc_url( admin_url( "post.php?post=$postid&action=edit" ) ).'" >'.__('Edit Post', Plugin::DOMAIN).'</a'.
+			' href="'.esc_url( admin_url( "post.php?post=$postid&action=edit" ) ).'" >'.__('Edit Post', 'grid').'</a'.
 			'><a class="add-new-h2" href="'.
-			esc_url( get_permalink( $postid ) ).'">'.__('View Grid', Plugin::DOMAIN).'</a></h2> </div>';
+			esc_url( get_permalink( $postid ) ).'">'.__('View Grid', 'grid').'</a></h2> </div>';
 
 		/**
 		 * async parameters
