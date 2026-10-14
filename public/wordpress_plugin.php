@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Grid
+ * Plugin Name: Grid Landing Page Editor
  * Plugin URI: https://github.com/palasthotel/wp-grid
  * Description: Helps layouting pages with containerist.
  * Version: 3.0.1
