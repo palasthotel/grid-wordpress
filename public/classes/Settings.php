@@ -9,6 +9,7 @@
 namespace Palasthotel\Grid\WordPress;
 
 
+use Grid\Constants\GridCSSVariant;
 use Grid\Constants\GridCssVariantFlexbox;
 use Grid\Constants\GridCssVariantNone;
 use Grid\Constants\GridCssVariantTable;
@@ -88,18 +89,18 @@ class Settings extends _Component
 		 */
 		add_settings_section( 'grid_frontend_css', __('Frontend CSS', 'grid'), array( $this, 'frontend_css_settings_section' ), 'grid_settings' );
 		add_settings_field( Plugin::OPTION_FRONTEND_CSS_VARIANT, __('Variant', 'grid'), array( $this, 'frontend_css_html' ), 'grid_settings', 'grid_frontend_css' );
-		register_setting( 'grid_settings', Plugin::OPTION_FRONTEND_CSS_VARIANT );
+		register_setting( 'grid_settings', Plugin::OPTION_FRONTEND_CSS_VARIANT, array( 'sanitize_callback' => array( $this, 'sanitize_css_variant' ) ) );
 
 		/**
 		 * default styles
 		 */
 		add_settings_section( 'grid_default_styles', __('Default Styles', 'grid'), array( $this, 'default_styles_settings_section' ), 'grid_settings' );
 		add_settings_field( 'grid_default_container_style', __('Container Style', 'grid'), array( $this, 'default_container_style_html' ), 'grid_settings', 'grid_default_styles' );
-		register_setting( 'grid_settings', 'grid_default_container_style' );
+		register_setting( 'grid_settings', 'grid_default_container_style', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 		add_settings_field( 'grid_default_slot_style', __('Slot Style', 'grid'), array( $this, 'default_slot_style_html' ), 'grid_settings', 'grid_default_styles' );
-		register_setting( 'grid_settings', 'grid_default_slot_style' );
+		register_setting( 'grid_settings', 'grid_default_slot_style', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 		add_settings_field( 'grid_default_box_style', __('Box Style','grid'), array( $this, 'default_box_style_html' ), 'grid_settings', 'grid_default_styles' );
-		register_setting( 'grid_settings', 'grid_default_box_style' );
+		register_setting( 'grid_settings', 'grid_default_box_style', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 
 		/**
 		 * enabled post types for grid
@@ -110,13 +111,13 @@ class Settings extends _Component
 			// ignore landing_page and sidebar because we check them seperately
 			if($key == 'landing_page') continue;
 			add_settings_field( 'grid_'.$key.'_enabled', $post_type->labels->name, array( $this, 'post_type_html' ), 'grid_settings', 'grid_post_types', array( 'type' => $key ) );
-			register_setting( 'grid_settings', 'grid_'.$key.'_enabled' );
+			register_setting( 'grid_settings', 'grid_'.$key.'_enabled', array( 'sanitize_callback' => array( $this, 'sanitize_checkbox' ) ) );
 		}
 		/**
 		 * check manually because disabling this will unregister post types
 		 */
 		add_settings_field( 'grid_landing_page_enabled', __("Landing Pages", 'grid'), array( $this, 'post_type_html' ), 'grid_settings', 'grid_post_types', array( 'type' => 'landing_page') );
-		register_setting( 'grid_settings', 'grid_landing_page_enabled' );
+		register_setting( 'grid_settings', 'grid_landing_page_enabled', array( 'sanitize_callback' => array( $this, 'sanitize_checkbox' ) ) );
 
 		/**
 		 * post types for search
@@ -125,7 +126,7 @@ class Settings extends _Component
 		$post_types = get_post_types( array('public' => true, 'show_ui' => true), 'objects' );
 		foreach ( $post_types as $key => $post_type ) {
 			add_settings_field( 'grid_'.$key.'_search_enabled', $post_type->labels->name, array( $this, 'post_type_search_html' ), 'grid_settings', 'grid_post_types_search', array( 'type' => $key ) );
-			register_setting( 'grid_settings', 'grid_'.$key.'_search_enabled' );
+			register_setting( 'grid_settings', 'grid_'.$key.'_search_enabled', array( 'sanitize_callback' => array( $this, 'sanitize_checkbox' ) ) );
 		}
 
 		/**
@@ -133,14 +134,14 @@ class Settings extends _Component
 		 */
 		add_settings_section( 'grid_default_container', __('New Grids', 'grid'), array( $this, 'default_container_section' ), 'grid_settings' );
 		add_settings_field( 'grid_default_container', __('Which container should be placed automatically', 'grid'), array( $this, 'default_container_html' ), 'grid_settings', 'grid_default_container' );
-		register_setting( 'grid_settings', 'grid_default_container' );
+		register_setting( 'grid_settings', 'grid_default_container', array( 'sanitize_callback' => 'sanitize_text_field' ) );
 
 		/**
 		 * debug mode
 		 */
 		add_settings_section( 'grid_debug_mode', __('Debug Mode', 'grid'), array( $this, 'debug_mode_section' ), 'grid_settings' );
 		add_settings_field( 'grid_debug_mode', __('Turn debug mode on/off', 'grid'), array( $this, 'debug_mode_html' ), 'grid_settings', 'grid_debug_mode' );
-		register_setting( 'grid_settings', 'grid_debug_mode' );
+		register_setting( 'grid_settings', 'grid_debug_mode', array( 'sanitize_callback' => array( $this, 'sanitize_checkbox' ) ) );
 
 		/**
 		 * async settings
@@ -148,34 +149,73 @@ class Settings extends _Component
 		add_settings_section( 'grid_async_service', __('Async', 'grid'), array( $this, 'async_section' ), 'grid_settings' );
 
 		add_settings_field( 'grid_async', _x('Enable', 'grid_async', 'grid'), array( $this, 'async_enable_html' ), 'grid_settings', 'grid_async_service' );
-		register_setting( 'grid_settings', 'grid_async' );
+		register_setting( 'grid_settings', 'grid_async', array( 'sanitize_callback' => array( $this, 'sanitize_checkbox' ) ) );
 
 		add_settings_field( 'grid_async_url', __('Service url (leave empty to use default url)', 'grid'), array( $this, 'async_url_html' ), 'grid_settings', 'grid_async_service' );
-		register_setting( 'grid_settings', 'grid_async_url' );
+		register_setting( 'grid_settings', 'grid_async_url', array( 'sanitize_callback' => array( $this, 'sanitize_async_url' ) ) );
 
 		add_settings_field( 'grid_async_timeout', __('After how many seconds an author loses the lock on a grid when not active?', 'grid'), array( $this, 'async_timeout_html' ), 'grid_settings', 'grid_async_service' );
-		register_setting( 'grid_settings', 'grid_async_timeout' );
+		register_setting( 'grid_settings', 'grid_async_timeout', array( 'sanitize_callback' => 'absint' ) );
 
 		/**
 		 * mediaselect info
 		 */
 		add_settings_section( 'grid_mediaselect_info', __('Mediaselect Info', 'grid'), array( $this, 'mediaselect_info_section' ), 'grid_settings' );
 		add_settings_field( 'grid_mediaselect_info', __('Set an info text for media in the WordPress media-box', 'grid'), array( $this, 'mediaselect_info_html' ), 'grid_settings', 'grid_mediaselect_info' );
-		register_setting( 'grid_settings', 'grid_mediaselect_info' );
+		register_setting( 'grid_settings', 'grid_mediaselect_info', array( 'sanitize_callback' => 'wp_kses_post' ) );
 
 		/**
 		* mediaselect types
 		*/
 		add_settings_section( 'grid_mediaselect_types', __('Mediaselect Types', 'grid'), array( $this, 'mediaselect_types_section' ), 'grid_settings' );
 		add_settings_field( 'grid_mediaselect_types', __('Choose types for media-box', 'grid'), array( $this, 'mediaselect_types_html' ), 'grid_settings', 'grid_mediaselect_types' );
-		register_setting( 'grid_settings', 'grid_mediaselect_types' );
+		register_setting( 'grid_settings', 'grid_mediaselect_types', array( 'sanitize_callback' => array( $this, 'sanitize_media_types' ) ) );
 
 		/**
 		 * permalinks
 		 */
 		add_settings_section( 'grid_permalinks', __('Grid', 'grid'), array( $this, 'permalinks_section' ), 'grid_settings' );
 		add_settings_field( 'grid_permalinks', __('Landing Page base', 'grid'), array( $this, 'permalinks_html' ), 'grid_settings', 'grid_permalinks' );
-		register_setting( 'grid_settings', 'grid_permalinks' );
+		register_setting( 'grid_settings', 'grid_permalinks', array( 'sanitize_callback' => 'sanitize_text_field' ) );
+	}
+
+	/**
+	 * checkbox options store "on" or an empty string
+	 *
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function sanitize_checkbox( $value ) {
+		return empty( $value ) ? '' : 'on';
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function sanitize_css_variant( $value ) {
+		// unknown values fall back to the table variant
+		return GridCSSVariant::getVariant( is_string( $value ) ? $value : '' )->slug();
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function sanitize_media_types( $value ) {
+		return ( '*' === $value ) ? '*' : 'image';
+	}
+
+	/**
+	 * @param mixed $value
+	 *
+	 * @return string
+	 */
+	public function sanitize_async_url( $value ) {
+		return esc_url_raw( trim( (string) $value ), array( 'http', 'https', 'ws', 'wss' ) );
 	}
 
 	function frontend_css_settings_section(){
