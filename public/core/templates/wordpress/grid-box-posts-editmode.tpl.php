@@ -8,7 +8,7 @@
  * @var $content object
  */
 
-use Palasthotel\Grid\WordPress\Plugin;
+defined( 'ABSPATH' ) || exit;
 
 ?>
 <div class="grid-box-editmode">

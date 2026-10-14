@@ -8,7 +8,7 @@
  * @var object $content
  */
 
-use Palasthotel\Grid\WordPress\Plugin;
+defined( 'ABSPATH' ) || exit;
 
 ?>
 

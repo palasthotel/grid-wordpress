@@ -6,6 +6,8 @@
  * @package Palasthotel\Grid\Wordpress
  */
 
+defined( 'ABSPATH' ) || exit;
+
 use Palasthotel\Grid\Template;
 
 $classes = $this->classes;

@@ -4,6 +4,8 @@ use Palasthotel\Grid\Endpoint;
 use Palasthotel\Grid\Storage;
 use Palasthotel\Grid\WordPress\Plugin;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * @return \Palasthotel\Grid\Wordpress\Plugin
  */

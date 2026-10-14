@@ -6,6 +6,8 @@
  * @package Palasthotel\Grid\Wordpress
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="grid-box-editmode">
     <div class="content">

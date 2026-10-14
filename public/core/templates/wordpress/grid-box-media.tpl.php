@@ -6,6 +6,8 @@
  * @package Palasthotel\Grid\Wordpress
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $classes = $this->classes;
 array_push( $classes, 'grid-box' );
 

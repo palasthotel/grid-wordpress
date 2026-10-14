@@ -8,6 +8,8 @@
  * @var object $content
  */
 
+defined( 'ABSPATH' ) || exit;
+
 $classes = $this->classes;
 array_push( $classes, 'grid-box' );
 

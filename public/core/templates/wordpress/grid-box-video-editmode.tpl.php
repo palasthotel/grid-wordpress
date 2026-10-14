@@ -5,6 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package Palasthotel\Grid
  */
+
+defined( 'ABSPATH' ) || exit;
 ?>
 <div class="grid-box-editmode">
   Video
