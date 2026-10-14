@@ -50,10 +50,10 @@ class grid_media_box extends grid_static_base_box {
 			$a_post = '';
 			if ( isset( $this->content->url ) && $this->content->url != '' ) {
 				if(!$editmode){
-					$a_pre = '<a href="'.$this->content->url.'">';
+					$a_pre = '<a href="'.esc_url( $this->content->url ).'">';
 					$a_post = '</a>';
 				} else{
-					$a_post.= '<br/>'.$this->content->url;
+					$a_post.= '<br/>'.esc_html( $this->content->url );
 				}
 
 			}
@@ -61,15 +61,15 @@ class grid_media_box extends grid_static_base_box {
 				$metadata = wp_get_attachment_metadata( $this->content->fileid->id );
 				if ( is_array( $metadata ) && isset( $metadata['file'] ) ) {
 					$this->content->image_meta_file = $metadata['file'];
-					$a_post .= '<br/> ('.$metadata['file'].')';
+					$a_post .= '<br/> ('.esc_html( $metadata['file'] ).')';
 				} else {
-					$a_post .= json_encode( $this->content->image_url );
-					$a_post .= '<br/> ('.$this->content->fileid->id.')';
+					$a_post .= esc_html( wp_json_encode( $this->content->image_url ) );
+					$a_post .= '<br/> ('.esc_html( $this->content->fileid->id ).')';
 				}
 			}
 			$img_tag = wp_get_attachment_image( $this->content->fileid->id, $this->content->fileid->size );
 			if ( ( ! $img_tag || $img_tag == '') && ! $editmode && is_object( $this->content->fileid ) ) {
-				$img_tag = '<img src="'.$this->content->image_url. '"/>';
+				$img_tag = '<img src="'.esc_url( $this->content->image_url ). '"/>';
 			}
 			$this->content->image_tag = $img_tag;
 			$this->content->rendered_html = $a_pre.$img_tag.$a_post;

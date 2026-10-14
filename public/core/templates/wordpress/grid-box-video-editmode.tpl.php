@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
   if (NULL != $this->grid) {
     foreach ($fields as $field) {
       if (!empty($content->{$field})) {
-        echo '<br>' . $field . ': ' . $content->{$field};
+        echo '<br>' . esc_html( $field . ': ' . $content->{$field} );
       }
     }
   }

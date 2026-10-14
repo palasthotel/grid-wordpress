@@ -40,7 +40,7 @@ class grid_post_box extends grid_box {
 			return 'Post is lost';
 		}
 		if ( $editmode ) {
-			return $post->post_type.': '.$post->post_title.' ('.$post->post_date.' - '.$post->post_status.')';
+			return esc_html( $post->post_type.': '.$post->post_title.' ('.$post->post_date.' - '.$post->post_status.')' );
 		} else {
 			$query = new WP_Query( array(
 				'p' => $post_id,

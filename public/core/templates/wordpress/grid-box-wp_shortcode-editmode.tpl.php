@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 		if ( empty( $content->slug ) ) {
 			echo '<br>' . esc_html__( 'You need to set a valid shortcode!', 'grid' );
 		} else {
-			echo "<br>[{$content->slug} {$content->attributes}]";
+			echo '<br>' . esc_html( "[{$content->slug} {$content->attributes}]" );
 		}
 	}
 	?>

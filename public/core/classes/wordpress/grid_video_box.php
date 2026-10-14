@@ -85,6 +85,8 @@ class grid_video_box extends grid_static_base_box
 	*/
 	public function persist()
 	{
+		// the embed code always comes from the video platform, never from the request
+		$this->content->html = '';
 		if(isset($this->content->url) && !empty($this->content->url))
 		{
 			// OK, we have an url, we need to do our oembed vodoo.
@@ -156,7 +158,7 @@ class grid_video_box extends grid_static_base_box
 				$url="https://vimeo.com/api/oembed.json?url=".urlencode($this->content->url).$url_need_title.$url_need_byline.$url_need_portrait;
 				$this->content->html=$this->fetch_oembed_html($url);
 			}
-			else $this->content->html=$host;
+			else $this->content->html=esc_html( $host );
 		}
 		return parent::persist();
 	}
