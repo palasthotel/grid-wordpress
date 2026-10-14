@@ -63,7 +63,7 @@ class Copy extends _Component {
 			$temp['copy-grid'] = sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( $this->getCopyActionUrl($entity->ID) ),
-				__( 'Copy Grid', Plugin::DOMAIN )
+				__( 'Copy Grid', 'grid' )
 			);
 			$actions           = array_merge( $temp, $actions );
 		}
@@ -76,17 +76,17 @@ class Copy extends _Component {
 	 */
 	function ajax_copy_grid(){
 
-		if(!current_user_can("edit_pages")) wp_die(__("You have no permission to copy a grid.", Plugin::DOMAIN));
+		if(!current_user_can("edit_pages")) wp_die(esc_html__("You have no permission to copy a grid.", 'grid'));
 
 		$post_id = isset($_GET[self::AJAX_PARAM_POST_ID]) ? intval($_GET[self::AJAX_PARAM_POST_ID]) : 0;
 		check_admin_referer( self::AJAX_ACTION_COPY . '_' . $post_id );
 
-		if(!current_user_can("edit_page", $post_id)) wp_die(__("You have no permission to copy this grid.", Plugin::DOMAIN));
-		if(!$this->plugin->post->post_has_grid($post_id)) wp_die(__("This post has no grid to copy.", Plugin::DOMAIN));
+		if(!current_user_can("edit_page", $post_id)) wp_die(esc_html__("You have no permission to copy this grid.", 'grid'));
+		if(!$this->plugin->post->post_has_grid($post_id)) wp_die(esc_html__("This post has no grid to copy.", 'grid'));
 
 		$grid_id = $this->plugin->get_grid_by_postid($post_id);
 
-		if(false === $grid_id) wp_die(__("Could not find grid.", Plugin::DOMAIN));
+		if(false === $grid_id) wp_die(esc_html__("Could not find grid.", 'grid'));
 
 		// action just right before starting to copy data
 		do_action(Plugin::ACTION_COPY_BEFORE, $post_id, $grid_id);
@@ -95,7 +95,7 @@ class Copy extends _Component {
 		$clone = $this->plugin->gridCore->storage->cloneGridById($grid_id);
 
 		// clone post
-		$title   = get_the_title($post_id).__(" - Copy", Plugin::DOMAIN);
+		$title   = get_the_title($post_id).__(" - Copy", 'grid');
 		$source = get_post($post_id);
 		$post    = array(
 			'post_title' => $title,

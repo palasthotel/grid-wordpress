@@ -122,7 +122,7 @@ class grid_debug_box extends grid_static_base_box {
 				array(
 					'key' => 'media',
 					'type' => 'wp-mediaselect',
-					'label' => t( 'This is a wp media element' ),
+					'label' => __( 'This is a wp media element', 'grid' ),
 					'media_type' => get_option( 'grid_mediaselect_types', 'image' ),
 				),
 				array(

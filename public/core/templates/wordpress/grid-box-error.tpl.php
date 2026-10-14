@@ -8,6 +8,8 @@
  * @package Palasthotel\Grid\Wordpress
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( ! grid_wp_show_box_errors( $this ) ) {
 	return;
 }

@@ -5,6 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package Palasthotel\Grid\Wordpress
  */
+
+defined( 'ABSPATH' ) || exit;
 ?>
 <h3><?php the_title(); ?></h3>
 <?php

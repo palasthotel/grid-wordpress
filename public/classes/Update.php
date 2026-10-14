@@ -59,11 +59,13 @@ class Update extends UpdateBase
 			$action.'_'.$slug
 		);
 
-		$button = "<a href='$url' class='install-now button'>Install</a>";
-		echo '<div class="update-nag">
+		$button = "<a href='" . esc_url( $url ) . "' class='install-now button'>Install</a>";
+		$notice = '<div class="update-nag">
 			<p>Grid Facebook Box and Twitter Box were moved to a separate plugin <a href="https://wordpress.org/plugins/grid-social-boxes">Grid Social Boxes</a>.</p>
 			<p>'.$button.'</p>
 		</div>';
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- static markup, $button is escaped above.
+		echo $notice;
 	}
 }
 

@@ -2,6 +2,8 @@
 
 use Palasthotel\Grid\WordPress\Plugin;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * Class grid_plugin
  * @deprecated use Palasthotel\Grid\WordPress\Plugin instead

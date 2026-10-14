@@ -24,7 +24,7 @@ class MetaBoxes extends _Component
 		$post_types = get_post_types( array(), 'objects' );
 		foreach ( $post_types as $key => $post_type ) {
 			if ( get_option( 'grid_'.$key.'_enabled', false ) ) {
-				add_meta_box( 'grid', __( 'Grid', Plugin::DOMAIN ), array( $this, 'render_meta_box' ) , $key, 'side', 'high' );
+				add_meta_box( 'grid', __( 'Grid', 'grid' ), array( $this, 'render_meta_box' ) , $key, 'side', 'high' );
 			}
 		}
 	}
@@ -38,15 +38,15 @@ class MetaBoxes extends _Component
 		wp_enqueue_style(self::CSS_HANDLE, $this->plugin->url."/css/meta-box.css");
 		if( get_post_status($post->ID) == 'auto-draft' ){
 			?>
-			<input type="hidden" name="grid[<?php echo PositionInPost::META_KEY ?>]" value="<?php echo PositionInPost::POSITION_BOTTOM ?>" />
-			<p><?php _e('Save post before you can use grid.', 'grid'); ?></p>
+			<input type="hidden" name="grid[<?php echo esc_attr( PositionInPost::META_KEY ) ?>]" value="<?php echo esc_attr( PositionInPost::POSITION_BOTTOM ) ?>" />
+			<p><?php esc_html_e('Save post before you can use grid.', 'grid'); ?></p>
 			<?php
 		} else if ( get_option( 'grid_'.$post->post_type.'_enabled', false ) ) {
 			$url = add_query_arg( array( 'page' => 'grid', 'postid' => $post->ID ), admin_url( 'admin.php' ) );
 			
 			?>
 			<p>
-				<a class="button" href="<?php echo $url?>"><?php _e('Switch to the Grid', 'grid'); ?></a>
+				<a class="button" href="<?php echo esc_url( $url )?>"><?php esc_html_e('Switch to the Grid', 'grid'); ?></a>
 			</p>
 			<?php
 			// get from hook
@@ -63,19 +63,19 @@ class MetaBoxes extends _Component
 
 				?>
 				<p>
-					<strong><?php _e('Position of grid', 'grid'); ?></strong>
+					<strong><?php esc_html_e('Position of grid', 'grid'); ?></strong>
 					<label
 							for="grid-position"
 							class="screen-reader-text"
-					><?php _e('Position of grid', 'grid'); ?></label>
+					><?php esc_html_e('Position of grid', 'grid'); ?></label>
 					<select
 							id="grid-position"
-							name="grid[<?php echo PositionInPost::META_KEY ?>]"
+							name="grid[<?php echo esc_attr( PositionInPost::META_KEY ) ?>]"
 					>
-						<?php $this->render_position_option(__('Append to content', Plugin::DOMAIN), PositionInPost::POSITION_BOTTOM, $val); ?>
-						<?php $this->render_position_option(__('Prepend to content', Plugin::DOMAIN), PositionInPost::POSITION_TOP, $val); ?>
-						<?php $this->render_position_option(__('Grid only, no content', Plugin::DOMAIN), PositionInPost::POSITION_ONLY, $val); ?>
-						<?php $this->render_position_option(__('Disable grid rendering', Plugin::DOMAIN), PositionInPost::POSITION_NONE, $val); ?>
+						<?php $this->render_position_option(__('Append to content', 'grid'), PositionInPost::POSITION_BOTTOM, $val); ?>
+						<?php $this->render_position_option(__('Prepend to content', 'grid'), PositionInPost::POSITION_TOP, $val); ?>
+						<?php $this->render_position_option(__('Grid only, no content', 'grid'), PositionInPost::POSITION_ONLY, $val); ?>
+						<?php $this->render_position_option(__('Disable grid rendering', 'grid'), PositionInPost::POSITION_NONE, $val); ?>
 					</select>
 				</p>
 				<?php
@@ -93,10 +93,10 @@ class MetaBoxes extends _Component
 	private function render_position_option($label, $position, $value){
 		?>
 		<option
-			value="<?php echo $position ?>"
+			value="<?php echo esc_attr( $position ) ?>"
 			<?php if($position == $value) echo " selected='selected' " ?>
 		>
-			<?php echo $label ?>
+			<?php echo esc_html( $label ) ?>
 		</option>
 		<?php
 	}
@@ -107,7 +107,7 @@ class MetaBoxes extends _Component
 	 */
 	function save_post($post_id){
 		if(!empty($_POST["grid"]) && !empty($_POST["grid"][PositionInPost::META_KEY])){
-			update_post_meta($post_id, PositionInPost::META_KEY,$_POST["grid"][PositionInPost::META_KEY]);
+			update_post_meta($post_id, PositionInPost::META_KEY, sanitize_text_field( wp_unslash( $_POST["grid"][PositionInPost::META_KEY] ) ));
 		}
 	}
 	

@@ -15,7 +15,7 @@ class grid_search_form_box extends grid_static_base_box {
 
 	public function __construct() {
 		parent::__construct();
-		$this->content->submit_label = __("Search", Plugin::DOMAIN);
+		$this->content->submit_label = __("Search", 'grid');
 		$this->content->placeholder = "";
 	}
 

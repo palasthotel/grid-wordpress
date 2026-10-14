@@ -8,7 +8,7 @@
  * @var $content object
  */
 
-use Palasthotel\Grid\WordPress\Plugin;
+defined( 'ABSPATH' ) || exit;
 
 ?>
 <div class="grid-box-editmode">
@@ -28,7 +28,7 @@ use Palasthotel\Grid\WordPress\Plugin;
 
 				if ( count( $value ) > 0 ) {
 					$tax = get_taxonomy( $taxonomy );
-					echo "<br><i>{$tax->label}:</i> ";
+					echo '<br><i>' . esc_html( $tax->label ) . ':</i> ';
 					$terms = array();
 					foreach ( $value as $term_id ) {
 						$term = get_term( $term_id, $taxonomy );
@@ -36,26 +36,26 @@ use Palasthotel\Grid\WordPress\Plugin;
 							$terms[] = $term->name;
 						}
 					}
-					echo implode( ', ', $terms );
+					echo esc_html( implode( ', ', $terms ) );
 				}
 			} else if ( ! empty( $value ) && is_string( $value ) ) {
 				if ( $field === 'post_format' ) {
-					echo '<br><i>' . $field . ':</i> ' . get_post_format_string( $value );
+					echo '<br><i>' . esc_html( $field ) . ':</i> ' . esc_html( get_post_format_string( $value ) );
 				} else if ( $field === 'post_type' ) {
 					if($value === "any"){
-						echo "<br/><i>$field:</i> ".__('Any post type', Plugin::DOMAIN);
+						echo '<br/><i>' . esc_html( $field ) . ':</i> ' . esc_html__( 'Any post type', 'grid' );
 					} else {
 						$post_type = get_post_type_object($value);
-						if($post_type !== null) echo '<br><i>' . $field . ':</i> ' . $post_type->label;
+						if($post_type !== null) echo '<br><i>' . esc_html( $field ) . ':</i> ' . esc_html( $post_type->label );
 					}
 				} else {
-					echo '<br><i>' . $field . ':</i> ' . $value;
+					echo '<br><i>' . esc_html( $field ) . ':</i> ' . esc_html( $value );
 				}
 			} else if(! empty($value) && is_array($value)){
 				if($field === "post_type"){
 					$post_types = array_filter(array_map(function($slug){
 						if($slug === "any"){
-							return __('Any post type', Plugin::DOMAIN);
+							return __('Any post type', 'grid');
 						}
 						return get_post_type_object($slug);
 					}, $value), function($post_type){ return null != $post_type; });
@@ -63,9 +63,9 @@ use Palasthotel\Grid\WordPress\Plugin;
 						if(is_string($post_type)) return $post_type;
 						return $post_type->label;
 					}, $post_types);
-					echo '<br><i>' . $field . ':</i> ' . implode(", ", $labels);
+					echo '<br><i>' . esc_html( $field ) . ':</i> ' . esc_html( implode( ', ', $labels ) );
 				} else {
-					echo '<br><i>' . $field . ':</i> ' . implode(", ", $value);
+					echo '<br><i>' . esc_html( $field ) . ':</i> ' . esc_html( implode( ', ', $value ) );
 				}
 			}
 		}

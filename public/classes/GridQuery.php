@@ -56,6 +56,8 @@ class GridQuery extends AbstractQuery {
 		if ( $is_ipv6 && extension_loaded( 'mysqlnd' ) ) {
 			$host = "[$host]";
 		}
+		// The library needs mysqli results (fetch_assoc and friends), which $wpdb does not hand out.
+		// phpcs:ignore WordPress.DB.RestrictedFunctions.mysql_mysqli_init -- only reached with a db drop-in that has no mysqli connection; otherwise $wpdb's connection is used above.
 		$connection = mysqli_init();
 		$connection->real_connect( $host, DB_USER, DB_PASSWORD, DB_NAME, $port ? intval( $port ) : null, $socket, defined( 'MYSQL_CLIENT_FLAGS' ) ? MYSQL_CLIENT_FLAGS : 0 );
 		if ( $connection->connect_errno ) {

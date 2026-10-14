@@ -12,9 +12,6 @@ jobs:
   checks:
     uses: palasthotel/github-workflows/.github/workflows/wp-plugin-pr.yml@v1
     with:
-      # Plugin Check reports errors on this plugin - see https://github.com/palasthotel/wp-grid/issues/143.
-      # Remove this line once they are fixed.
-      plugin-check: false
       slug: grid
       main-file: wordpress_plugin.php
       dev-plugin-name: Grid - DEV

@@ -77,7 +77,7 @@ class Privileges
 								$checked = 'checked';
 							}
 							?>
-							<td><input title="<?php echo esc_attr( translate_user_role( $name ) . ' can ' . $right ); ?>" type="checkbox" name="privileges[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $right ); ?>]" <?php echo $checked; ?>></td>
+							<td><input title="<?php echo esc_attr( translate_user_role( $name ) . ' can ' . $right ); ?>" type="checkbox" name="privileges[<?php echo esc_attr( $key ); ?>][<?php echo esc_attr( $right ); ?>]" <?php echo esc_attr( $checked ); ?>></td>
 							<?php
 						}
 						?>

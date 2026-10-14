@@ -5,6 +5,8 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GPLv2
  * @package Palasthotel\Grid
  */
+
+defined( 'ABSPATH' ) || exit;
 ?>
 <div class="grid-box-editmode">
   Video
@@ -16,7 +18,7 @@
   if (NULL != $this->grid) {
     foreach ($fields as $field) {
       if (!empty($content->{$field})) {
-        echo '<br>' . $field . ': ' . $content->{$field};
+        echo '<br>' . esc_html( $field . ': ' . $content->{$field} );
       }
     }
   }

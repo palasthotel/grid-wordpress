@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Grid
+ * Plugin Name: Grid Landing Page Editor
  * Plugin URI: https://github.com/palasthotel/wp-grid
  * Description: Helps layouting pages with containerist.
  * Version: 3.0.1
@@ -213,7 +213,7 @@ class Plugin extends Component\Plugin {
 	}
 
 	public function styles_nonce() {
-		echo wp_nonce_field();
+		wp_nonce_field();
 	}
 
 	public function loadGridPaths(iTemplate $template){
@@ -243,7 +243,7 @@ class Plugin extends Component\Plugin {
 		if ( get_option( "grid_landing_page_enabled", false ) ) {
 			$permalink = get_option( 'grid_permalinks', '' );
 			if ( '' == $permalink ) {
-				$landing_page_permalink = _x( 'landing_page', 'slug', self::DOMAIN);
+				$landing_page_permalink = _x( 'landing_page', 'slug', 'grid');
 			} else {
 				$landing_page_permalink = $permalink;
 			}
@@ -252,12 +252,12 @@ class Plugin extends Component\Plugin {
 				apply_filters( 'grid_register_post_type_landing_page',
 					array(
 						'labels'            => array(
-							'name'          => __( 'Landing Pages', Plugin::DOMAIN ),
-							'singular_name' => __( 'Landing Page', Plugin::DOMAIN ),
+							'name'          => __( 'Landing Pages', 'grid' ),
+							'singular_name' => __( 'Landing Page', 'grid' ),
 							// labels to be continued
 						),
 						'menu_icon'         => plugins_url( 'images/post-type-icon.png', __FILE__ ),
-						'description'       => __( 'This is where you can add new landing pages to your site.', Plugin::DOMAIN ),
+						'description'       => __( 'This is where you can add new landing pages to your site.', 'grid' ),
 						'public'            => true,
 						'show_ui'           => true,
 						'hierarchical'      => false,
@@ -469,16 +469,16 @@ class Plugin extends Component\Plugin {
 		if ( ! isset( $options['installed'] ) ) {
 			$schema = $this->gridCore->getDatabaseSchema();
 			$schema['grid_nodes'] = array(
-				'description' => t( 'references nodes' ),
+				'description' => 'references nodes',
 				'fields' => array(
 					'nid' => array(
-						'description' => t( 'node id' ),
+						'description' => 'node id',
 						'type' => 'int',
 						'unsigned' => true,
 						'not null' => true,
 					),
 					'grid_id' => array(
-						'description' => t( 'grid id' ),
+						'description' => 'grid id',
 						'type' => 'int',
 						'size' => 'normal',
 						'unsigned' => true,
@@ -514,7 +514,7 @@ class Plugin extends Component\Plugin {
 							$query .= ' COLLATE '.$data['collate'];
 						}
 					} else {
-						die( 'unknown type '.$fielddata['type'] );
+						die( 'unknown type '.esc_html( $fielddata['type'] ) );
 					}
 					if ( isset( $fielddata['unsigned'] ) && $fielddata['unsigned'] ) {
 						$query .= ' unsigned';

@@ -40,7 +40,7 @@ class grid_post_box extends grid_box {
 			return 'Post is lost';
 		}
 		if ( $editmode ) {
-			return $post->post_type.': '.$post->post_title.' ('.$post->post_date.' - '.$post->post_status.')';
+			return esc_html( $post->post_type.': '.$post->post_title.' ('.$post->post_date.' - '.$post->post_status.')' );
 		} else {
 			$query = new WP_Query( array(
 				'p' => $post_id,
@@ -93,7 +93,7 @@ class grid_post_box extends grid_box {
 	* @return string
 	*/
 	public function metaTitle() {
-		return t( 'Contents' );
+		return __( 'Contents', 'grid' );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class grid_post_box extends grid_box {
 			$cs[] = array(
 				'key' => 'viewmode',
 				'type' => 'select',
-				'label' => t('Viewmode'),
+				'label' => __( 'Viewmode', 'grid' ),
 				'selections' => $viewmodes,
 			);
 		}
@@ -213,8 +213,8 @@ class grid_post_box extends grid_box {
 	 */
 	public function getViewmodes(){
 		$viewmodes = array(
-			array('key' => 'excerpt', 'text' => t('Excerpt') ),
-			array('key' => 'full', 'text' => t('Full') ),
+			array('key' => 'excerpt', 'text' => __( 'Excerpt', 'grid' ) ),
+			array('key' => 'full', 'text' => __( 'Full', 'grid' ) ),
 		);
 		$viewmodes = apply_filters('grid_post_viewmodes',$viewmodes);
 		return (is_array($viewmodes))? $viewmodes: array();

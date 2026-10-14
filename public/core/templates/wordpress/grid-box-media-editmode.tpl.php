@@ -6,9 +6,14 @@
  * @package Palasthotel\Grid\Wordpress
  */
 
+defined( 'ABSPATH' ) || exit;
+
 ?>
 <div class="grid-box-editmode">
     <div class="content">
-		<?php echo $content->rendered_html; ?>
+		<?php
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- markup built and escaped by grid_media_box::build().
+		echo $content->rendered_html;
+		?>
     </div>
 </div>

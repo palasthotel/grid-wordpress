@@ -67,23 +67,23 @@ class grid_wp_shortcode_box extends grid_static_base_box {
 		$cs[] = array(
 			'key' => 'slug',
 			'type' => 'text',
-			'label' => __('Shortcode', Plugin::DOMAIN),
+			'label' => __('Shortcode', 'grid'),
 		);
 		
 		$cs[] = array(
 			'key' => 'attributes',
-			'label' => __('Attributes', Plugin::DOMAIN),
+			'label' => __('Attributes', 'grid'),
 			'type' => 'list',
 			'contentstructure' => array(
 				array(
 					'key' => 'name',
 					'type' => 'text',
-					'label' => __('Name', Plugin::DOMAIN),
+					'label' => __('Name', 'grid'),
 				),
 				array(
 					'key' => 'value',
 					'type' => 'text',
-					'label' => __('Value', Plugin::DOMAIN),
+					'label' => __('Value', 'grid'),
 				)
 			),
 		);
